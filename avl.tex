@@ -626,6 +626,38 @@
 \end{frame}
 
 % =====================================================
+\begin{frame}{証明の図 (1)：帰納法の進み方（INSERT）}
+  \centering
+  \begin{tikzpicture}[avl,y=0.5cm]
+    \node[nd] (r) at (0,0) {};
+    \node[nd] (p1) at (-0.9,-1.4) {};
+    \node[hl] (p2) at (-0.2,-2.8) {$u$};
+    \node[nd] (p3) at (-1.0,-4.2) {};
+    \node[hl,dashed] (x) at (-1.7,-5.6) {$x$};
+    \draw (r)--(p1) (p1)--(p2) (p2)--(p3) (p3)--(x);
+    \sub{r}{0.9}{-1.4}{-3.6}{}
+    \sub{p1}{-1.7}{-2.8}{-4.6}{}
+    \sub{p2}{0.6}{-4.2}{-6.0}{}
+    \sub{p3}{-0.3}{-5.6}{-6.6}{}
+    \foreach \a/\b/\t in {x/p3/+1, p3/p2/+1, p2/p1/0, p1/r/0}
+      \node[font=\scriptsize\bfseries,accent,fill=white,inner sep=1pt] at ($(\a)!0.5!(\b)$) {$\t$};
+    \begin{scope}[every node/.style={font=\scriptsize,anchor=west}]
+      \node at (1.6,0)    {$\Delta=0$ を受け取る $\Rightarrow$ 何もしない};
+      \node at (1.6,-1.4) {$\Delta=0$ を受け取る $\Rightarrow$ 何もしない};
+      \node at (1.6,-2.8) {$\Delta=+1$，挿入前 $s(u)=L$ $\Rightarrow$ \alert{回転}．高さは挿入前と同じ（$\Delta=0$）};
+      \node at (1.6,-4.2) {$\Delta=+1$，挿入前 $E$ $\Rightarrow$ $L$ にする．高さ $+1$（$\Delta=+1$）};
+      \node at (1.6,-5.6) {新しい葉：高さ $-1\to0$（$\Delta=+1$）};
+    \end{scope}
+  \end{tikzpicture}\\[6pt]
+  \raggedright\footnotesize
+  \begin{itemize}
+    \item 赤い数字 $\Delta$：子の部分木の高さの変化．帰納法の仮定（示すことの (3)）より $\Delta\in\{0,+1\}$．
+    \item 各節点は，子から受け取る $\Delta$ と挿入前の自分の $s$ だけで，自分の部分木が (1)〜(3) をみたすことを確かめる（証明 (4)(5)）．
+    \item 回転した節点から上へは $\Delta=0$ しか伝わらない $\Rightarrow$ 回転は\alert{高々1回}．
+  \end{itemize}
+\end{frame}
+
+% =====================================================
 \begin{frame}{証明 (3)：使う事実}
   \footnotesize
   挿入前に $s(u)=L$ だった節点 $u$ で，挿入によって左部分木が1高くなったとする（$u$ は傾きすぎ）．
@@ -687,6 +719,49 @@
         高さは $O(\log n)$（問題 (4) で後ほど証明する事実）なので，INSERT は最悪時間 $O(\log n)$．
     \end{itemize}
   \end{alertblock}
+\end{frame}
+
+% =====================================================
+\begin{frame}{証明の図 (2)：節点 $u$ での場合分け（証明 (4)(5)）}
+  \centering
+  \begin{tikzpicture}[avl]
+    \begin{scope}[every node/.style={font=\scriptsize,align=center,text width=3.1cm}]
+      \node at (0,1.3) {左の高さが\\増えなかった};
+      \node at (3.5,1.3) {左が1増えた\\挿入前 $s(u)=R$};
+      \node at (7.0,1.3) {左が1増えた\\挿入前 $s(u)=E$};
+      \node at (10.5,1.3) {左が1増えた\\挿入前 $s(u)=L$};
+    \end{scope}
+    \node[nd] (uA) at (0,0) {$u$};
+    \sub{uA}{-0.6}{-1}{-3}{} \sub{uA}{0.6}{-1}{-3}{}
+    \node[font=\scriptsize,anchor=east] at (-0.90,-2.5) {$a$};
+    \node[font=\scriptsize,anchor=west] at (0.90,-2.5) {$b$};
+    \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]0:$R\to E$}] (uB) at (3.5,0) {$u$};
+    \sub{uB}{2.9}{-1}{-3}{} \sub{uB}{4.1}{-1}{-4}{}
+    \ext{2.9}{-3}{1}
+    \node[font=\scriptsize,anchor=east] at (2.60,-2.5) {$a$};
+    \node[font=\scriptsize,anchor=west] at (4.40,-3.5) {$a{+}1$};
+    \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]0:$E\to L$}] (uC) at (7.0,0) {$u$};
+    \sub{uC}{6.4}{-1}{-3}{} \sub{uC}{7.6}{-1}{-3}{}
+    \ext{6.4}{-3}{1}
+    \node[font=\scriptsize,anchor=east] at (6.10,-2.5) {$a$};
+    \node[font=\scriptsize,anchor=west] at (7.90,-2.5) {$a$};
+    \node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]0:$L$}] (uD) at (10.5,0) {$u$};
+    \sub{uD}{9.9}{-1}{-4}{} \sub{uD}{11.1}{-1}{-3}{}
+    \ext{9.9}{-4}{1}
+    \node[font=\scriptsize,anchor=east] at (9.60,-3.5) {$b{+}1$};
+    \node[font=\scriptsize,anchor=west] at (11.40,-2.5) {$b$};
+    \draw[dotted,accent] (10.2,-3) -- (12.25,-3) (10.2,-5) -- (12.25,-5);
+    \draw[<->,accent,thick] (12.2,-3) -- node[right,font=\scriptsize]{2} (12.2,-5);
+    \begin{scope}[every node/.style={font=\scriptsize,align=center,text width=3.1cm,anchor=north}]
+      \node at (0,-6.2) {$s(u)$ はそのまま\\高さ不変};
+      \node at (3.5,-6.2) {左右とも $a{+}1$\\高さ不変（$\Delta=0$）};
+      \node at (7.0,-6.2) {左が1高い（釣り合う）\\高さ $+1$（$\Delta=+1$）};
+      \node at (10.5,-6.2) {差が2 $\Rightarrow$ 図 3.11 の回転\\高さは挿入前と同じ（$\Delta=0$）};
+    \end{scope}
+  \end{tikzpicture}\\[2pt]
+  \raggedright\footnotesize
+  三角形の横の文字は挿入前の高さ．破線は挿入で増えた高さ．右部分木は変わらない．\\
+  4つ目の場合の回転後が AVL木であることと高さは，(F1)〜(F3) と図 3.11 による．
 \end{frame}
 
 % =====================================================
@@ -1086,6 +1161,39 @@
 \end{frame}
 
 % =====================================================
+\begin{frame}{証明の図 (3)：帰納法の進み方（DELETE）}
+  \centering
+  \begin{tikzpicture}[avl,y=0.5cm]
+    \node[nd] (r) at (0,0) {};
+    \node[hl] (p1) at (-0.9,-1.4) {$u'$};
+    \node[hl] (p2) at (-0.2,-2.8) {$u$};
+    \node[nd] (p3) at (-1.0,-4.2) {};
+    \node[nd,dashed,draw=accent,text=accent] (x) at (-1.7,-5.6) {$x$};
+    \draw (r)--(p1) (p1)--(p2) (p2)--(p3);
+    \draw[dashed,accent] (p3)--(x);
+    \sub{r}{0.9}{-1.4}{-3.6}{}
+    \sub{p1}{-1.7}{-2.8}{-4.6}{}
+    \sub{p2}{0.6}{-4.2}{-6.4}{}
+    \sub{p3}{-0.3}{-5.6}{-6.6}{}
+    \foreach \a/\b/\t in {x/p3/-1, p3/p2/-1, p2/p1/-1, p1/r/0}
+      \node[font=\scriptsize\bfseries,accent,fill=white,inner sep=1pt] at ($(\a)!0.5!(\b)$) {$\t$};
+    \begin{scope}[every node/.style={font=\scriptsize,anchor=west}]
+      \node at (1.6,0)    {$\Delta=0$ を受け取る $\Rightarrow$ 何もしない};
+      \node at (1.6,-1.4) {$\Delta=-1$，除去前 $s(u')=R$ $\Rightarrow$ \alert{図 3.12(a) の回転}．高さ不変（$\Delta=0$）};
+      \node at (1.6,-2.8) {$\Delta=-1$，除去前 $s(u)=R$ $\Rightarrow$ \alert{図 3.12(b)/(c) の回転}．高さ $-1$（$\Delta=-1$）};
+      \node at (1.6,-4.2) {$\Delta=-1$，除去前 $L$ $\Rightarrow$ $E$ にする．高さ $-1$（$\Delta=-1$）};
+      \node at (1.6,-5.6) {葉を除去：高さ $0\to-1$（$\Delta=-1$）};
+    \end{scope}
+  \end{tikzpicture}\\[6pt]
+  \raggedright\footnotesize
+  \begin{itemize}
+    \item 赤い数字 $\Delta$：子の部分木の高さの変化．帰納法の仮定（示すことの (3)）より $\Delta\in\{0,-1\}$．
+    \item 各節点は，子から受け取る $\Delta$ と除去前の自分の $s$ だけで，自分の部分木が (1)〜(3) をみたすことを確かめる（証明 (9)(10)）．
+    \item 図 3.12(b)(c) の回転のあとも $\Delta=-1$ が上へ伝わりうる $\Rightarrow$ 回転は\alert{複数回}起こりうる（INSERT と異なる）．
+  \end{itemize}
+\end{frame}
+
+% =====================================================
 \begin{frame}{証明 (8)：使う事実（図 3.12）}
   \small
   除去前に $s(u)=R$ だった節点 $u$ で，除去によって左部分木が1低くなったとする（$u$ は傾きすぎ）．
@@ -1140,6 +1248,49 @@
         高さは $O(\log n)$（問題 (4) で後ほど証明する事実）なので，DELETE は最悪時間 $O(\log n)$．
     \end{itemize}
   \end{alertblock}
+\end{frame}
+
+% =====================================================
+\begin{frame}{証明の図 (4)：節点 $u$ での場合分け（証明 (9)(10)）}
+  \centering
+  \begin{tikzpicture}[avl]
+    \begin{scope}[every node/.style={font=\scriptsize,align=center,text width=3.1cm}]
+      \node at (0,1.3) {左の高さが\\減らなかった};
+      \node at (3.5,1.3) {左が1減った\\除去前 $s(u)=L$};
+      \node at (7.0,1.3) {左が1減った\\除去前 $s(u)=E$};
+      \node at (10.5,1.3) {左が1減った\\除去前 $s(u)=R$};
+    \end{scope}
+    \node[nd] (uA) at (0,0) {$u$};
+    \sub{uA}{-0.6}{-1}{-3}{} \sub{uA}{0.6}{-1}{-3}{}
+    \node[font=\scriptsize,anchor=east] at (-0.90,-2.5) {$a$};
+    \node[font=\scriptsize,anchor=west] at (0.90,-2.5) {$b$};
+    \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]0:$L\to E$}] (uB) at (3.5,0) {$u$};
+    \sub{uB}{2.9}{-1}{-3}{} \sub{uB}{4.1}{-1}{-3}{}
+    \ext{2.9}{-3}{1}
+    \node[font=\scriptsize,anchor=east] at (2.60,-2.5) {$b$};
+    \node[font=\scriptsize,anchor=west] at (4.40,-2.5) {$b$};
+    \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]0:$E\to R$}] (uC) at (7.0,0) {$u$};
+    \sub{uC}{6.4}{-1}{-3}{} \sub{uC}{7.6}{-1}{-4}{}
+    \ext{6.4}{-3}{1}
+    \node[font=\scriptsize,anchor=east] at (6.10,-2.5) {$b{-}1$};
+    \node[font=\scriptsize,anchor=west] at (7.90,-3.5) {$b$};
+    \node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]0:$R$}] (uD) at (10.5,0) {$u$};
+    \sub{uD}{9.9}{-1}{-3}{} \sub{uD}{11.1}{-1}{-5}{}
+    \ext{9.9}{-3}{1}
+    \node[font=\scriptsize,anchor=east] at (9.60,-2.5) {$b{-}2$};
+    \node[font=\scriptsize,anchor=west] at (11.40,-4.5) {$b$};
+    \draw[dotted,accent] (10.2,-3) -- (12.25,-3) (10.2,-5) -- (12.25,-5);
+    \draw[<->,accent,thick] (12.2,-3) -- node[right,font=\scriptsize]{2} (12.2,-5);
+    \begin{scope}[every node/.style={font=\scriptsize,align=center,text width=3.1cm,anchor=north}]
+      \node at (0,-6.2) {$s(u)$ はそのまま\\高さ不変};
+      \node at (3.5,-6.2) {左右とも $b$\\高さ $-1$（$\Delta=-1$）};
+      \node at (7.0,-6.2) {右が1高い（釣り合う）\\高さ不変（$\Delta=0$）};
+      \node at (10.5,-6.2) {差が2 $\Rightarrow$ 図 3.12 の回転\\(a) 高さ不変（$\Delta=0$）\\(b)(c) 高さ $-1$（$\Delta=-1$）};
+    \end{scope}
+  \end{tikzpicture}\\[2pt]
+  \raggedright\footnotesize
+  三角形の横の文字は除去後の高さ．破線は除去で失われた高さ．右部分木は変わらない．\\
+  4つ目の場合の回転後が AVL木であることと高さは，(G1)〜(G3) と図 3.12 による．
 \end{frame}
 
 % =====================================================

@@ -136,11 +136,6 @@
           「どの節点においても，その左部分木と\\右部分木の高さの差は1以下．」
         \end{center}
       \end{block}
-      \begin{itemize}
-        \item 名称は提案者 G.\,M.~\textbf{A}del'son-\textbf{V}el'skii と
-              Y.\,M.~\textbf{L}andis の頭文字
-        \item 3節点が一列の木は，根で差が $2$ なので AVL木でない
-      \end{itemize}
     \end{column}
     \begin{column}{0.38\textwidth}
       \centering
@@ -281,17 +276,6 @@
           そのあと AVL木の条件が破れていれば，\alert{回転}で形を直す
     \item 回転は，木の形を変えるが\alert{2分探索木の条件を保つ}操作
   \end{itemize}
-  \begin{block}{以降の進め方（INSERT，続いて DELETE）}
-    \begin{enumerate}
-      \item \textbf{考え方}（具体例から）
-        \begin{itemize}
-          \item 最小の例で，回転が何をするのかを見る
-          \item やや大きな木で，回転の要否の判断に何が必要かを考える（$s(y)$ の導入）
-          \item 部分木の高さが一般の場合の回転を図示する
-        \end{itemize}
-      \item \textbf{手順のまとめ}：INSERT, DELETE の修正手順を場合分けとして述べる
-    \end{enumerate}
-  \end{block}
 \end{frame}
 
 % =====================================================
@@ -610,7 +594,7 @@
 \begin{frame}{証明 (1)：INSERT の手順を再帰の形で述べる}
   \footnotesize
   ここまでで INSERT の修正手順を述べた．以降では，この手順を実行しても AVL木が保たれることを示す．\\[2pt]
-  INSERT は再帰的に述べられる．根が $u$ の木に $x$ を挿入するには，$x$ が小さければ左部分木に，そうでなければ右部分木に挿入する（以降は左の場合を述べる．右の場合は，左右を入れ替えて同様に行う）．
+  INSERT は再帰的に説明できる．根が $u$ の木に $x$ を挿入するには，$x$ が小さければ左部分木に，そうでなければ右部分木に挿入する（以降は左の場合を述べる．右の場合は，左右を入れ替えて同様に行う）．
   \begin{itemize}
     \item 木が空なら，$x$ だけの葉にする．
     \item そうでなければ，まず左部分木に $x$ を挿入する（より小さい木での同じ問題）．そのあと，左部分木の高さを見る：
@@ -657,7 +641,7 @@
       \item[(F3)] 回転後の部分木は，(a)，および (b) の $s(w)=L$，$s(w)=R$ のいずれの場合も AVL木の条件をみたす．（問題 3.5(ii)）
     \end{itemize}
   \end{block}
-  \begin{block}{図 3.11 から読み取れること（問題ではない）}
+  \begin{block}{図 3.11 から読み取れること}
     回転後の部分木の高さは，挿入前の $u$ の部分木の高さに等しい．
     また，回転後の $s(u),s(v),s(w)$ は，図の右側のように定める．
   \end{block}

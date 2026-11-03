@@ -1,0 +1,17 @@
+# LaTeX / beamer build outputs
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.pdf
+
+# OS / editor
+.DS_Store
+Thumbs.db

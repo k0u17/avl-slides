@@ -1,0 +1,38 @@
+{
+  // LaTeX Workshop: build avl.tex with LuaLaTeX (run twice for beamer navigation and page numbers)
+  "latex-workshop.latex.tools": [
+    {
+      "name": "lualatex",
+      "command": "lualatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "lualatex x2",
+      "tools": ["lualatex", "lualatex"]
+    }
+  ],
+  "latex-workshop.latex.recipe.default": "first",
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.autoClean.run": "onBuilt",
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux",
+    "*.log",
+    "*.nav",
+    "*.out",
+    "*.snm",
+    "*.toc",
+    "*.vrb",
+    "*.fls",
+    "*.fdb_latexmk",
+    "*.synctex.gz"
+  ],
+  "latex-workshop.view.pdf.viewer": "tab",
+  "files.encoding": "utf8"
+}

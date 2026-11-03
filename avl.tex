@@ -327,8 +327,8 @@
   \raggedright
   \begin{itemize}
     \item 前の例と同じ「傾きすぎ」でも，形が違う：前は左の子の\alert{左}が深く，今回は\alert{右}が深い
-    \item 前の例の回転（1回）を 3 に施しても直らない（1 を根にしても，3 の左に 2 がぶら下がり，傾きが残る）
-          $\Rightarrow$ まず 1 を回し，つぎに 3 を回す（\alert{2重回転}）
+    \item 前の例と同じく左の子 1 を根へ持ち上げても直らない（1 を根にしても，3 の左に 2 がぶら下がり，傾きが残る）
+          $\Rightarrow$ 3 節点 1, 2, 3 を組み替えて，\alert{2 を根，1 と 3 をその左右の子}にする
     \item 結果はどちらも，真ん中の値 2 が根になる
   \end{itemize}
 \end{frame}
@@ -461,7 +461,7 @@
   \end{center}
   \begin{itemize}
     \item 判断に必要なのは\alert{挿入前の差 $d$ だけ}．部分木の高さそのものは要らない
-    \item 回転が1重か2重かは，傾いた側の子がどちらに深いか（その子の差の符号）で決まる
+    \item どの形に組み替えるか（図 3.11 の (a) か (b) か）は，傾いた側の子がどちらに深いか（その子の差の符号）で決まる
   \end{itemize}
   \begin{block}{気づき}
     AVL木では $d\in\{-1,0,+1\}$ の\alert{3通りしかない}．
@@ -511,7 +511,7 @@
 \end{frame}
 
 % =====================================================
-\begin{frame}{図 3.11(a)　INSERT の回転（一般）：$s(v)=L$ の場合（1重回転）}
+\begin{frame}{図 3.11(a)　INSERT の回転（一般）：$s(v)=L$ の場合}
   \centering
   \begin{tikzpicture}[avl]
     % 回転前
@@ -540,7 +540,7 @@
 \end{frame}
 
 % =====================================================
-\begin{frame}{図 3.11(b)　INSERT の回転（一般）：$s(v)=R$ の場合（2重回転）}
+\begin{frame}{図 3.11(b)　INSERT の回転（一般）：$s(v)=R$ の場合}
   \centering
   \begin{tikzpicture}[avl]
     % 回転前
@@ -717,7 +717,7 @@
   \begin{enumerate}
     \item 1 を除くと，2 の左は空（高さ $-1$），右は 3 を根とする高さ $1$ の部分木 $\Rightarrow$ 差が $2$．
     \item 重い側の子 3 は，さらに\alert{右（外側）}に 4 が伸びている．
-          3 を根へ持ち上げ，2 を 3 の左の子にする（\alert{1重回転}）．3 の左は空なので，2 の右も空になる．
+          3 を根へ持ち上げ，2 を 3 の左の子にする．3 の左は空なので，2 の右も空になる．
     \item 3 が根で 2, 4 が子となり釣り合う．
   \end{enumerate}
 \end{frame}
@@ -752,7 +752,7 @@
   \begin{enumerate}
     \item 1 を除くと，2 の左は空，右は 4 を根とする高さ $1$ の部分木 $\Rightarrow$ 差が $2$．
     \item 重い側の子 4 は，左右の高さが\alert{同じ}（3 と 5）．
-          4 を根へ持ち上げ，2 を 4 の左の子にする（\alert{1重回転}）．
+          4 を根へ持ち上げ，2 を 4 の左の子にする．
           4 の左の子だった 3 は，$2<3<4$ なので 2 の右の子につけかえる．
     \item 4 が根で 2, 5 が子となり，3 は 2 の右の子となって釣り合う．
   \end{enumerate}
@@ -775,11 +775,11 @@
       \node[font=\scriptsize,accent,left] at (-0.35,0) {$d=-2$};
       \node at (0.7,-3.3) {\small 1 を除去：2 が傾きすぎ};
     \end{scope}
-    \node at (8.7,-1) {\rotarrow};
+    \node at (10.4,-1) {\rotarrow};
     \begin{scope}[xshift=10.9cm]
       \node[nd] (a) at (0,0) {3}; \node[nd] (b) at (-0.9,-1) {2}; \node[nd] (c) at (0.9,-1) {4};
       \draw (a)--(b) (a)--(c);
-      \node at (0,-3.3) {\small 2重回転後};
+      \node at (0,-3.3) {\small 回転後};
     \end{scope}
   \end{tikzpicture}\\[2pt]
   \raggedright\small
@@ -787,7 +787,7 @@
     \item 1 を除くと，2 の左は空，右は 4 を根とする高さ $1$ の部分木 $\Rightarrow$ 差が $2$．
     \item 重い側の子 4 は，\alert{左（内側）}に 3 が伸びている．
           このとき 4 を根へ持ち上げるだけでは，3 が 2 の右に回って今度は 4 の左右が傾き，直らない．
-          そこで 3 を 4 の位置へ持ち上げ（2--3--4 の一直線にする），続けて 3 を根へ持ち上げる（\alert{2重回転}）．
+          そこで 3 節点 2, 3, 4 を組み替えて，\alert{3 を根，2 と 4 をその左右の子}にする（図 3.12(c) の回転）．
     \item 真ん中の値 3 が根になり釣り合う．
   \end{enumerate}
 \end{frame}
@@ -824,7 +824,7 @@
   \begin{itemize}\small
     \item 節点 4：状態は $L\to E$ に変わり，4 を根とする部分木の高さが1減る．そのため 8 の左が1低くなる
     \item 節点 8：右が2高くなり傾きすぎ．重い側の子 12 は右（外側）に傾いている
-          $\Rightarrow$ 例 (1) と同じ1重回転
+          $\Rightarrow$ 例 (1) と同じ形の回転
   \end{itemize}
 \end{frame}
 
@@ -997,7 +997,7 @@
 \end{frame}
 
 % =====================================================
-\begin{frame}{図 3.12(c)　DELETE の回転（一般）：$s(u)=R$，$s(w)=L$（2重回転）}
+\begin{frame}{図 3.12(c)　DELETE の回転（一般）：$s(u)=R$，$s(w)=L$}
   \centering
   \begin{tikzpicture}[avl,y=0.5cm]
     \deletebefore

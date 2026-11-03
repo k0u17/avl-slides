@@ -335,8 +335,8 @@
 
 % =====================================================
 \begin{frame}{INSERT の考え方 (3)：大きな木で下から上へ調べる}
-  要素 $2$ を挿入する．新しい節点から根へ向かって，各節点で
-  \alert{傾きすぎていないか}を調べる．
+  要素 $2$ を挿入する．新しい葉から根へ向かって，各節点の部分木が
+  \alert{釣り合っているか}（$|d|\le1$）を調べる．
   差 $d=$（左の高さ）$-$（右の高さ）とする．
   \begin{columns}[T]
     \begin{column}{0.46\textwidth}
@@ -361,17 +361,14 @@
     \begin{column}{0.52\textwidth}
       \renewcommand{\arraystretch}{1.35}
       \small
-      \begin{tabular}{c|cc|l}
-        節点 & 前 $d$ & 後 $d$ & 判断 \\\hline
-        $4$ & $0$ & $+1$ & 高さ増加 $\Rightarrow$ 上へ \\
-        $6$ & $0$ & $+1$ & 高さ増加 $\Rightarrow$ 上へ \\
-        $8$ & $+1$ & \alert{$+2$} & \alert{傾きすぎ $\Rightarrow$ 回転}
-      \end{tabular}\\[2pt]
-      {\scriptsize 前／後：挿入前／後の $d$}
+      \begin{tabular}{c|c|l}
+        節点 & 挿入後の $d$ & 判断 \\\hline
+        $4$ & $+1$ & 釣り合っている \\
+        $6$ & $+1$ & 釣り合っている \\
+        $8$ & \alert{$+2$} & \alert{傾きすぎ $\Rightarrow$ 回転}
+      \end{tabular}
     \end{column}
   \end{columns}
-  \vspace{4pt}
-  各節点で，新しい差は「\alert{挿入前の差}」と「左が高くなった」ことだけから決まる．
 \end{frame}
 
 % =====================================================

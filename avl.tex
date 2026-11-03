@@ -626,38 +626,6 @@
 \end{frame}
 
 % =====================================================
-\begin{frame}{証明の図 (1)：帰納法の進み方（INSERT）}
-  \centering
-  \begin{tikzpicture}[avl,y=0.5cm]
-    \node[nd] (r) at (0,0) {};
-    \node[nd] (p1) at (-0.9,-1.4) {};
-    \node[hl] (p2) at (-0.2,-2.8) {$u$};
-    \node[nd] (p3) at (-1.0,-4.2) {};
-    \node[hl,dashed] (x) at (-1.7,-5.6) {$x$};
-    \draw (r)--(p1) (p1)--(p2) (p2)--(p3) (p3)--(x);
-    \sub{r}{0.9}{-1.4}{-3.6}{}
-    \sub{p1}{-1.7}{-2.8}{-4.6}{}
-    \sub{p2}{0.6}{-4.2}{-6.0}{}
-    \sub{p3}{-0.3}{-5.6}{-6.6}{}
-    \foreach \a/\b/\t in {x/p3/+1, p3/p2/+1, p2/p1/0, p1/r/0}
-      \node[font=\scriptsize\bfseries,accent,fill=white,inner sep=1pt] at ($(\a)!0.5!(\b)$) {$\t$};
-    \begin{scope}[every node/.style={font=\scriptsize,anchor=west}]
-      \node at (1.6,0)    {$\Delta=0$ を受け取る $\Rightarrow$ 何もしない};
-      \node at (1.6,-1.4) {$\Delta=0$ を受け取る $\Rightarrow$ 何もしない};
-      \node at (1.6,-2.8) {$\Delta=+1$，挿入前 $s(u)=L$ $\Rightarrow$ \alert{回転}．高さは挿入前と同じ（$\Delta=0$）};
-      \node at (1.6,-4.2) {$\Delta=+1$，挿入前 $E$ $\Rightarrow$ $L$ にする．高さ $+1$（$\Delta=+1$）};
-      \node at (1.6,-5.6) {新しい葉：高さ $-1\to0$（$\Delta=+1$）};
-    \end{scope}
-  \end{tikzpicture}\\[6pt]
-  \raggedright\footnotesize
-  \begin{itemize}
-    \item 赤い数字 $\Delta$：子の部分木の高さの変化．帰納法の仮定（示すことの (3)）より $\Delta\in\{0,+1\}$．
-    \item 各節点は，子から受け取る $\Delta$ と挿入前の自分の $s$ だけで，自分の部分木が (1)〜(3) をみたすことを確かめる（証明 (4)(5)）．
-    \item 回転した節点から上へは $\Delta=0$ しか伝わらない $\Rightarrow$ 回転は\alert{高々1回}．
-  \end{itemize}
-\end{frame}
-
-% =====================================================
 \begin{frame}{証明 (3)：使う事実}
   \footnotesize
   挿入前に $s(u)=L$ だった節点 $u$ で，挿入によって左部分木が1高くなったとする（$u$ は傾きすぎ）．
@@ -700,6 +668,100 @@
 \end{frame}
 
 % =====================================================
+\begin{frame}{INSERT の各場合 (1)：空の木，左が高くならない場合}
+  \centering
+  \begin{tikzpicture}[avl,y=0.5cm]
+\node[font=\small\bfseries,main] at (1.6,1.3) {空の木};
+\begin{scope}[xshift=0cm]
+\node[font=\large] at (0,-1) {$\emptyset$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {空の木\\高さ $-1$};
+\end{scope}
+\node at (1.6,-1.5) {\insarrow};
+\begin{scope}[xshift=3.2cm]
+\node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (x0) at (0,-1) {$x$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {葉ひとつ\\高さ $0$（1増える）};
+\end{scope}
+\node[font=\small\bfseries,main] at (8.8,1.3) {左部分木の高さが増えなかった};
+\begin{scope}[xshift=7.2cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$s$}] (a1) at (0,0) {$u$};
+\draw (a1) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
+\draw[fill=white] (-0.6,-1) -- (-0.93,-3) -- (-0.27,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.6,-3) {$a$};
+\draw (a1) -- (0.6,-1); \fill (0.6,-1) circle (1.2pt);
+\draw[fill=white] (0.6,-1) -- (0.27,-3) -- (0.93,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$b$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {挿入前};
+\end{scope}
+\node at (8.8,-1.5) {\insarrow};
+\begin{scope}[xshift=10.4cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$s$}] (a2) at (0,0) {$u$};
+\draw (a2) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
+\draw[fill=accent!20] (-0.6,-1) -- (-0.93,-3) -- (-0.27,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.6,-3) {$a$};
+\draw (a2) -- (0.6,-1); \fill (0.6,-1) circle (1.2pt);
+\draw[fill=white] (0.6,-1) -- (0.27,-3) -- (0.93,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$b$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {$u$ での差も $s(u)$ もそのまま\\高さ不変};
+\end{scope}
+  \end{tikzpicture}\\[2pt]
+  \raggedright\footnotesize
+  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は挿入で高さが変わった部分木．\\
+  右の場合：左部分木の中身は変わったが高さ $a$ は同じ（帰納法の仮定 (3)）．
+\end{frame}
+% =====================================================
+\begin{frame}{INSERT の各場合 (2)：左が1高くなり，$s(u)=R$ または $E$}
+  \centering
+  \begin{tikzpicture}[avl,y=0.5cm]
+\node[font=\small\bfseries,main] at (1.6,1.3) {挿入前 $s(u)=R$（$b=a+1$）};
+\begin{scope}[xshift=0cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (r1) at (0,0) {$u$};
+\draw (r1) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
+\draw[fill=white] (-0.6,-1) -- (-0.93,-3) -- (-0.27,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.6,-3) {$a$};
+\draw (r1) -- (0.6,-1); \fill (0.6,-1) circle (1.2pt);
+\draw[fill=white] (0.6,-1) -- (0.27,-4) -- (0.93,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.6,-4) {$a{+}1$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {挿入前\\高さ $a+2$};
+\end{scope}
+\node at (1.6,-1.5) {\insarrow};
+\begin{scope}[xshift=3.2cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (r2) at (0,0) {$u$};
+\draw (r2) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
+\draw[fill=accent!20] (-0.6,-1) -- (-0.93,-4) -- (-0.27,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.6,-4) {$a{+}1$};
+\draw (r2) -- (0.6,-1); \fill (0.6,-1) circle (1.2pt);
+\draw[fill=white] (0.6,-1) -- (0.27,-4) -- (0.93,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.6,-4) {$a{+}1$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {左右が等しい：$s(u)=E$\\高さ $a+2$（不変）};
+\end{scope}
+\node[font=\small\bfseries,main] at (8.8,1.3) {挿入前 $s(u)=E$（$b=a$）};
+\begin{scope}[xshift=7.2cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (e1) at (0,0) {$u$};
+\draw (e1) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
+\draw[fill=white] (-0.6,-1) -- (-0.93,-3) -- (-0.27,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.6,-3) {$a$};
+\draw (e1) -- (0.6,-1); \fill (0.6,-1) circle (1.2pt);
+\draw[fill=white] (0.6,-1) -- (0.27,-3) -- (0.93,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$a$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {挿入前\\高さ $a+1$};
+\end{scope}
+\node at (8.8,-1.5) {\insarrow};
+\begin{scope}[xshift=10.4cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (e2) at (0,0) {$u$};
+\draw (e2) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
+\draw[fill=accent!20] (-0.6,-1) -- (-0.93,-4) -- (-0.27,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.6,-4) {$a{+}1$};
+\draw (e2) -- (0.6,-1); \fill (0.6,-1) circle (1.2pt);
+\draw[fill=white] (0.6,-1) -- (0.27,-3) -- (0.93,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$a$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {左が1高い：$s(u)=L$\\高さ $a+2$（1増える）};
+\end{scope}
+  \end{tikzpicture}\\[2pt]
+  \raggedright\footnotesize
+  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は挿入で高さが変わった部分木．
+\end{frame}
+
+% =====================================================
 \begin{frame}{証明 (5)：状態 $L$ の場合と結論}
   \footnotesize
   \begin{block}{左部分木の高さが1増え，挿入前 $s(u)=L$（$a=b+1$）}
@@ -722,46 +784,259 @@
 \end{frame}
 
 % =====================================================
-\begin{frame}{証明の図 (2)：節点 $u$ での場合分け（証明 (4)(5)）}
+\begin{frame}{INSERT の各場合 (3)：$s(u)=L$，$s(v)=L$（図 3.11(a)）}
   \centering
-  \begin{tikzpicture}[avl]
-    \begin{scope}[every node/.style={font=\scriptsize,align=center,text width=3.1cm}]
-      \node at (0,1.3) {左の高さが\\増えなかった};
-      \node at (3.5,1.3) {左が1増えた\\挿入前 $s(u)=R$};
-      \node at (7.0,1.3) {左が1増えた\\挿入前 $s(u)=E$};
-      \node at (10.5,1.3) {左が1増えた\\挿入前 $s(u)=L$};
-    \end{scope}
-    \node[nd] (uA) at (0,0) {$u$};
-    \sub{uA}{-0.6}{-1}{-3}{} \sub{uA}{0.6}{-1}{-3}{}
-    \node[font=\scriptsize,anchor=east] at (-0.90,-2.5) {$a$};
-    \node[font=\scriptsize,anchor=west] at (0.90,-2.5) {$b$};
-    \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]0:$R\to E$}] (uB) at (3.5,0) {$u$};
-    \sub{uB}{2.9}{-1}{-3}{} \sub{uB}{4.1}{-1}{-4}{}
-    \ext{2.9}{-3}{1}
-    \node[font=\scriptsize,anchor=east] at (2.60,-2.5) {$a$};
-    \node[font=\scriptsize,anchor=west] at (4.40,-3.5) {$a{+}1$};
-    \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]0:$E\to L$}] (uC) at (7.0,0) {$u$};
-    \sub{uC}{6.4}{-1}{-3}{} \sub{uC}{7.6}{-1}{-3}{}
-    \ext{6.4}{-3}{1}
-    \node[font=\scriptsize,anchor=east] at (6.10,-2.5) {$a$};
-    \node[font=\scriptsize,anchor=west] at (7.90,-2.5) {$a$};
-    \node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]0:$L$}] (uD) at (10.5,0) {$u$};
-    \sub{uD}{9.9}{-1}{-4}{} \sub{uD}{11.1}{-1}{-3}{}
-    \ext{9.9}{-4}{1}
-    \node[font=\scriptsize,anchor=east] at (9.60,-3.5) {$b{+}1$};
-    \node[font=\scriptsize,anchor=west] at (11.40,-2.5) {$b$};
-    \draw[dotted,accent] (10.2,-3) -- (12.25,-3) (10.2,-5) -- (12.25,-5);
-    \draw[<->,accent,thick] (12.2,-3) -- node[right,font=\scriptsize]{2} (12.2,-5);
-    \begin{scope}[every node/.style={font=\scriptsize,align=center,text width=3.1cm,anchor=north}]
-      \node at (0,-6.2) {$s(u)$ はそのまま\\高さ不変};
-      \node at (3.5,-6.2) {左右とも $a{+}1$\\高さ不変（$\Delta=0$）};
-      \node at (7.0,-6.2) {左が1高い（釣り合う）\\高さ $+1$（$\Delta=+1$）};
-      \node at (10.5,-6.2) {差が2 $\Rightarrow$ 図 3.11 の回転\\高さは挿入前と同じ（$\Delta=0$）};
-    \end{scope}
+  \begin{tikzpicture}[avl,y=0.5cm]
+\begin{scope}[xshift=0.0cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (u) at (0,0) {$u$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$E$}] (v) at (-0.9,-1) {$v$};
+\draw (u)--(v);
+\draw (v) -- (-1.4,-2); \fill (-1.4,-2) circle (1.2pt);
+\draw[fill=white] (-1.4,-2) -- (-1.73,-4) -- (-1.07,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.4,-4) {$k$};
+\node[font=\scriptsize] at (-1.4,-3.45) {$\alpha$};
+\draw (v) -- (-0.4,-2); \fill (-0.4,-2) circle (1.2pt);
+\draw[fill=white] (-0.4,-2) -- (-0.73,-4) -- (-0.07,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.4,-4) {$k$};
+\node[font=\scriptsize] at (-0.4,-3.45) {$\beta$};
+\draw (u) -- (0.9,-1); \fill (0.9,-1) circle (1.2pt);
+\draw[fill=white] (0.9,-1) -- (0.57,-3) -- (1.23,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.9,-3) {$k$};
+\node[font=\scriptsize] at (0.9,-2.45) {$\gamma$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {挿入前\\高さ $k+2$};
+\end{scope}
+\node at (2.3,-2) {\insarrow};
+\begin{scope}[xshift=4.6cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (u) at (0,0) {$u$};
+\node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]150:$L$}] (v) at (-0.9,-1) {$v$};
+\draw (u)--(v);
+\draw (v) -- (-1.4,-2); \fill (-1.4,-2) circle (1.2pt);
+\draw[fill=accent!20] (-1.4,-2) -- (-1.73,-5) -- (-1.07,-5) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.4,-5) {$k{+}1$};
+\node[font=\scriptsize] at (-1.4,-4.45) {$\alpha$};
+\draw (v) -- (-0.4,-2); \fill (-0.4,-2) circle (1.2pt);
+\draw[fill=white] (-0.4,-2) -- (-0.73,-4) -- (-0.07,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.4,-4) {$k$};
+\node[font=\scriptsize] at (-0.4,-3.45) {$\beta$};
+\draw (u) -- (0.9,-1); \fill (0.9,-1) circle (1.2pt);
+\draw[fill=white] (0.9,-1) -- (0.57,-3) -- (1.23,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.9,-3) {$k$};
+\node[font=\scriptsize] at (0.9,-2.45) {$\gamma$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {$\alpha$ に挿入：$\alpha$ が $k+1$\\$u$ で左が2高い};
+\end{scope}
+\node at (6.8999999999999995,-2) {\rotarrow};
+\begin{scope}[xshift=9.2cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (v) at (0,0) {$v$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (u) at (0.9,-1) {$u$};
+\draw (v)--(u);
+\draw (v) -- (-0.9,-1); \fill (-0.9,-1) circle (1.2pt);
+\draw[fill=accent!20] (-0.9,-1) -- (-1.23,-4) -- (-0.57,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.9,-4) {$k{+}1$};
+\node[font=\scriptsize] at (-0.9,-3.45) {$\alpha$};
+\draw (u) -- (0.4,-2); \fill (0.4,-2) circle (1.2pt);
+\draw[fill=white] (0.4,-2) -- (0.07,-4) -- (0.73,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.4,-4) {$k$};
+\node[font=\scriptsize] at (0.4,-3.45) {$\beta$};
+\draw (u) -- (1.4,-2); \fill (1.4,-2) circle (1.2pt);
+\draw[fill=white] (1.4,-2) -- (1.07,-4) -- (1.73,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.4,-4) {$k$};
+\node[font=\scriptsize] at (1.4,-3.45) {$\gamma$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {回転後：$s(v)=s(u)=E$\\高さ $k+2$（挿入前と同じ）};
+\end{scope}
   \end{tikzpicture}\\[2pt]
   \raggedright\footnotesize
-  三角形の横の文字は挿入前の高さ．破線は挿入で増えた高さ．右部分木は変わらない．\\
-  4つ目の場合の回転後が AVL木であることと高さは，(F1)〜(F3) と図 3.11 による．
+  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は挿入で高さが変わった部分木．$s(u)$ は挿入前の値．\\
+  回転後の $u$：左右とも $k$．$v$：左右とも $k+1$．どちらも釣り合う．
+\end{frame}
+% =====================================================
+\begin{frame}{INSERT の各場合 (4)：$s(u)=L$，$s(v)=R$，$s(w)=L$（図 3.11(b)）}
+  \centering
+  \begin{tikzpicture}[avl,y=0.5cm]
+\begin{scope}[xshift=0.0cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (u) at (0,0) {$u$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$E$}] (v) at (-1.0,-1) {$v$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (w) at (-0.4,-2) {$w$};
+\draw (u)--(v);
+\draw (v)--(w);
+\draw (v) -- (-1.6,-2); \fill (-1.6,-2) circle (1.2pt);
+\draw[fill=white] (-1.6,-2) -- (-1.93,-4) -- (-1.27,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.6,-4) {$k$};
+\node[font=\scriptsize] at (-1.6,-3.45) {$\alpha$};
+\draw (w) -- (-0.8,-3); \fill (-0.8,-3) circle (1.2pt);
+\draw[fill=white] (-0.8,-3) -- (-1.13,-4) -- (-0.47,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.8,-4) {$k{-}1$};
+\draw (w) -- (0.0,-3); \fill (0.0,-3) circle (1.2pt);
+\draw[fill=white] (0.0,-3) -- (-0.33,-4) -- (0.33,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.0,-4) {$k{-}1$};
+\draw (u) -- (1.0,-1); \fill (1.0,-1) circle (1.2pt);
+\draw[fill=white] (1.0,-1) -- (0.67,-3) -- (1.33,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.0,-3) {$k$};
+\node[font=\scriptsize] at (1.0,-2.45) {$\delta$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {挿入前\\高さ $k+2$};
+\end{scope}
+\node at (2.3,-2) {\insarrow};
+\begin{scope}[xshift=4.6cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (u) at (0,0) {$u$};
+\node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]150:$R$}] (v) at (-1.0,-1) {$v$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (w) at (-0.4,-2) {$w$};
+\draw (u)--(v);
+\draw (v)--(w);
+\draw (v) -- (-1.6,-2); \fill (-1.6,-2) circle (1.2pt);
+\draw[fill=white] (-1.6,-2) -- (-1.93,-4) -- (-1.27,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.6,-4) {$k$};
+\node[font=\scriptsize] at (-1.6,-3.45) {$\alpha$};
+\draw (w) -- (-0.8,-3); \fill (-0.8,-3) circle (1.2pt);
+\draw[fill=accent!20] (-0.8,-3) -- (-1.13,-5) -- (-0.47,-5) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.8,-5) {$k$};
+\node[font=\scriptsize] at (-0.8,-4.45) {$\beta$};
+\draw (w) -- (0.0,-3); \fill (0.0,-3) circle (1.2pt);
+\draw[fill=white] (0.0,-3) -- (-0.33,-4) -- (0.33,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.0,-4) {$k{-}1$};
+\draw (u) -- (1.0,-1); \fill (1.0,-1) circle (1.2pt);
+\draw[fill=white] (1.0,-1) -- (0.67,-3) -- (1.33,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.0,-3) {$k$};
+\node[font=\scriptsize] at (1.0,-2.45) {$\delta$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {$\beta$ に挿入：$\beta$ が $k$\\$u$ で左が2高い};
+\end{scope}
+\node at (6.8999999999999995,-2) {\rotarrow};
+\begin{scope}[xshift=9.2cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (w) at (0,0) {$w$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$E$}] (v) at (-1.0,-1) {$v$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (u) at (1.0,-1) {$u$};
+\draw (w)--(v);
+\draw (w)--(u);
+\draw (v) -- (-1.5,-2); \fill (-1.5,-2) circle (1.2pt);
+\draw[fill=white] (-1.5,-2) -- (-1.83,-4) -- (-1.17,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.5,-4) {$k$};
+\node[font=\scriptsize] at (-1.5,-3.45) {$\alpha$};
+\draw (v) -- (-0.5,-2); \fill (-0.5,-2) circle (1.2pt);
+\draw[fill=accent!20] (-0.5,-2) -- (-0.83,-4) -- (-0.17,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.5,-4) {$k$};
+\node[font=\scriptsize] at (-0.5,-3.45) {$\beta$};
+\draw (u) -- (0.5,-2); \fill (0.5,-2) circle (1.2pt);
+\draw[fill=white] (0.5,-2) -- (0.17,-3) -- (0.83,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.5,-3) {$k{-}1$};
+\draw (u) -- (1.5,-2); \fill (1.5,-2) circle (1.2pt);
+\draw[fill=white] (1.5,-2) -- (1.17,-4) -- (1.83,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.5,-4) {$k$};
+\node[font=\scriptsize] at (1.5,-3.45) {$\delta$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {回転後：$s(w)=s(v)=E$，$s(u)=R$\\高さ $k+2$（挿入前と同じ）};
+\end{scope}
+  \end{tikzpicture}\\[2pt]
+  \raggedright\footnotesize
+  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は挿入で高さが変わった部分木．$s(u)$ は挿入前の値．\\
+  左から右へ $\alpha,v,\beta,w,\gamma,u,\delta$ の順（並びは回転で変わらない）．
+\end{frame}
+% =====================================================
+\begin{frame}{INSERT の各場合 (5)：$s(u)=L$，$s(v)=R$，$s(w)=R$（問題 3.5(i)）}
+  \centering
+  \begin{tikzpicture}[avl,y=0.5cm]
+\begin{scope}[xshift=0.0cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (u) at (0,0) {$u$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$E$}] (v) at (-1.0,-1) {$v$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (w) at (-0.4,-2) {$w$};
+\draw (u)--(v);
+\draw (v)--(w);
+\draw (v) -- (-1.6,-2); \fill (-1.6,-2) circle (1.2pt);
+\draw[fill=white] (-1.6,-2) -- (-1.93,-4) -- (-1.27,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.6,-4) {$k$};
+\node[font=\scriptsize] at (-1.6,-3.45) {$\alpha$};
+\draw (w) -- (-0.8,-3); \fill (-0.8,-3) circle (1.2pt);
+\draw[fill=white] (-0.8,-3) -- (-1.13,-4) -- (-0.47,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.8,-4) {$k{-}1$};
+\draw (w) -- (0.0,-3); \fill (0.0,-3) circle (1.2pt);
+\draw[fill=white] (0.0,-3) -- (-0.33,-4) -- (0.33,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.0,-4) {$k{-}1$};
+\draw (u) -- (1.0,-1); \fill (1.0,-1) circle (1.2pt);
+\draw[fill=white] (1.0,-1) -- (0.67,-3) -- (1.33,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.0,-3) {$k$};
+\node[font=\scriptsize] at (1.0,-2.45) {$\delta$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {挿入前\\高さ $k+2$};
+\end{scope}
+\node at (2.3,-2) {\insarrow};
+\begin{scope}[xshift=4.6cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (u) at (0,0) {$u$};
+\node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]150:$R$}] (v) at (-1.0,-1) {$v$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (w) at (-0.4,-2) {$w$};
+\draw (u)--(v);
+\draw (v)--(w);
+\draw (v) -- (-1.6,-2); \fill (-1.6,-2) circle (1.2pt);
+\draw[fill=white] (-1.6,-2) -- (-1.93,-4) -- (-1.27,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.6,-4) {$k$};
+\node[font=\scriptsize] at (-1.6,-3.45) {$\alpha$};
+\draw (w) -- (-0.8,-3); \fill (-0.8,-3) circle (1.2pt);
+\draw[fill=white] (-0.8,-3) -- (-1.13,-4) -- (-0.47,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.8,-4) {$k{-}1$};
+\draw (w) -- (0.0,-3); \fill (0.0,-3) circle (1.2pt);
+\draw[fill=accent!20] (0.0,-3) -- (-0.33,-5) -- (0.33,-5) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.0,-5) {$k$};
+\node[font=\scriptsize] at (0.0,-4.45) {$\gamma$};
+\draw (u) -- (1.0,-1); \fill (1.0,-1) circle (1.2pt);
+\draw[fill=white] (1.0,-1) -- (0.67,-3) -- (1.33,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.0,-3) {$k$};
+\node[font=\scriptsize] at (1.0,-2.45) {$\delta$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {$\gamma$ に挿入：$\gamma$ が $k$\\$u$ で左が2高い};
+\end{scope}
+\node at (6.8999999999999995,-2) {\rotarrow};
+\begin{scope}[xshift=9.2cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (w) at (0,0) {$w$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$L$}] (v) at (-1.0,-1) {$v$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (u) at (1.0,-1) {$u$};
+\draw (w)--(v);
+\draw (w)--(u);
+\draw (v) -- (-1.5,-2); \fill (-1.5,-2) circle (1.2pt);
+\draw[fill=white] (-1.5,-2) -- (-1.83,-4) -- (-1.17,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.5,-4) {$k$};
+\node[font=\scriptsize] at (-1.5,-3.45) {$\alpha$};
+\draw (v) -- (-0.5,-2); \fill (-0.5,-2) circle (1.2pt);
+\draw[fill=white] (-0.5,-2) -- (-0.83,-3) -- (-0.17,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.5,-3) {$k{-}1$};
+\draw (u) -- (0.5,-2); \fill (0.5,-2) circle (1.2pt);
+\draw[fill=accent!20] (0.5,-2) -- (0.17,-4) -- (0.83,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.5,-4) {$k$};
+\node[font=\scriptsize] at (0.5,-3.45) {$\gamma$};
+\draw (u) -- (1.5,-2); \fill (1.5,-2) circle (1.2pt);
+\draw[fill=white] (1.5,-2) -- (1.17,-4) -- (1.83,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.5,-4) {$k$};
+\node[font=\scriptsize] at (1.5,-3.45) {$\delta$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {回転後：$s(w)=s(u)=E$，$s(v)=L$\\高さ $k+2$（挿入前と同じ）};
+\end{scope}
+  \end{tikzpicture}\\[2pt]
+  \raggedright\footnotesize
+  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は挿入で高さが変わった部分木．$s(u)$ は挿入前の値．\\
+  左から右へ $\alpha,v,\beta,w,\gamma,u,\delta$ の順（並びは回転で変わらない）．回転は図 3.11(b) と同じ．
+\end{frame}
+% =====================================================
+\begin{frame}{INSERT の各場合 (6)：$s(u)=L$，$w$ が新しい節点（補足）}
+  \centering
+  \begin{tikzpicture}[avl,y=0.5cm]
+\begin{scope}[xshift=0.0cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (u) at (0,0) {$u$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$E$}] (v) at (-0.9,-1) {$v$};
+\draw (u)--(v);
+\node[font=\scriptsize,align=center,anchor=north] at (0,-3.0) {挿入前\\高さ $1$};
+\end{scope}
+\node at (2.3,-2) {\insarrow};
+\begin{scope}[xshift=4.6cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (u) at (0,0) {$u$};
+\node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]150:$R$}] (v) at (-0.9,-1) {$v$};
+\node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (w) at (-0.3,-2) {$w$};
+\draw (u)--(v);
+\draw (v)--(w);
+\node[font=\scriptsize,align=center,anchor=north] at (0,-3.0) {$w$ を挿入：$s(w)=E$\\$u$ で左が2高い};
+\end{scope}
+\node at (6.8999999999999995,-2) {\rotarrow};
+\begin{scope}[xshift=9.2cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (w) at (0,0) {$w$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$E$}] (v) at (-0.8,-1) {$v$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (u) at (0.8,-1) {$u$};
+\draw (w)--(v);
+\draw (w)--(u);
+\node[font=\scriptsize,align=center,anchor=north] at (0,-3.0) {図 3.11(b) の回転\\高さ $1$（挿入前と同じ）};
+\end{scope}
+  \end{tikzpicture}\\[2pt]
+  \raggedright\footnotesize
+  $\alpha,\beta,\gamma,\delta$ がすべて空の場合．$s(w)=E$ なので (F2)(F3) には含まれないが，同じ回転で3節点が釣り合う．
 \end{frame}
 
 % =====================================================
@@ -1161,39 +1436,6 @@
 \end{frame}
 
 % =====================================================
-\begin{frame}{証明の図 (3)：帰納法の進み方（DELETE）}
-  \centering
-  \begin{tikzpicture}[avl,y=0.5cm]
-    \node[nd] (r) at (0,0) {};
-    \node[hl] (p1) at (-0.9,-1.4) {$u'$};
-    \node[hl] (p2) at (-0.2,-2.8) {$u$};
-    \node[nd] (p3) at (-1.0,-4.2) {};
-    \node[nd,dashed,draw=accent,text=accent] (x) at (-1.7,-5.6) {$x$};
-    \draw (r)--(p1) (p1)--(p2) (p2)--(p3);
-    \draw[dashed,accent] (p3)--(x);
-    \sub{r}{0.9}{-1.4}{-3.6}{}
-    \sub{p1}{-1.7}{-2.8}{-4.6}{}
-    \sub{p2}{0.6}{-4.2}{-6.4}{}
-    \sub{p3}{-0.3}{-5.6}{-6.6}{}
-    \foreach \a/\b/\t in {x/p3/-1, p3/p2/-1, p2/p1/-1, p1/r/0}
-      \node[font=\scriptsize\bfseries,accent,fill=white,inner sep=1pt] at ($(\a)!0.5!(\b)$) {$\t$};
-    \begin{scope}[every node/.style={font=\scriptsize,anchor=west}]
-      \node at (1.6,0)    {$\Delta=0$ を受け取る $\Rightarrow$ 何もしない};
-      \node at (1.6,-1.4) {$\Delta=-1$，除去前 $s(u')=R$ $\Rightarrow$ \alert{図 3.12(a) の回転}．高さ不変（$\Delta=0$）};
-      \node at (1.6,-2.8) {$\Delta=-1$，除去前 $s(u)=R$ $\Rightarrow$ \alert{図 3.12(b)/(c) の回転}．高さ $-1$（$\Delta=-1$）};
-      \node at (1.6,-4.2) {$\Delta=-1$，除去前 $L$ $\Rightarrow$ $E$ にする．高さ $-1$（$\Delta=-1$）};
-      \node at (1.6,-5.6) {葉を除去：高さ $0\to-1$（$\Delta=-1$）};
-    \end{scope}
-  \end{tikzpicture}\\[6pt]
-  \raggedright\footnotesize
-  \begin{itemize}
-    \item 赤い数字 $\Delta$：子の部分木の高さの変化．帰納法の仮定（示すことの (3)）より $\Delta\in\{0,-1\}$．
-    \item 各節点は，子から受け取る $\Delta$ と除去前の自分の $s$ だけで，自分の部分木が (1)〜(3) をみたすことを確かめる（証明 (9)(10)）．
-    \item 図 3.12(b)(c) の回転のあとも $\Delta=-1$ が上へ伝わりうる $\Rightarrow$ 回転は\alert{複数回}起こりうる（INSERT と異なる）．
-  \end{itemize}
-\end{frame}
-
-% =====================================================
 \begin{frame}{証明 (8)：使う事実（図 3.12）}
   \small
   除去前に $s(u)=R$ だった節点 $u$ で，除去によって左部分木が1低くなったとする（$u$ は傾きすぎ）．
@@ -1232,6 +1474,112 @@
 \end{frame}
 
 % =====================================================
+\begin{frame}{DELETE の各場合 (1)：節点そのもの，左が低くならない場合}
+  \centering
+  \begin{tikzpicture}[avl,y=0.5cm]
+\node[font=\small\bfseries,main] at (0.9,1.3) {葉};
+\begin{scope}[xshift=0cm]
+\node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (x1) at (0,-1) {$x$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-2.6) {高さ $0$};
+\end{scope}
+\node at (0.9,-1) {\delarrow};
+\begin{scope}[xshift=1.8cm]
+\node[font=\large] at (0,-1) {$\emptyset$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-2.6) {高さ $-1$};
+\end{scope}
+\node[font=\small\bfseries,main] at (4.6,1.3) {子が1つ};
+\begin{scope}[xshift=3.6cm]
+\node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (x2) at (0,0) {$x$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$E$}] (c2) at (-0.6,-1) {$c$};
+\draw (x2)--(c2);
+\node[font=\scriptsize,align=center,anchor=north] at (0,-2.6) {高さ $1$};
+\end{scope}
+\node at (4.6,-1) {\delarrow};
+\begin{scope}[xshift=5.6cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (c3) at (0,-1) {$c$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-2.6) {高さ $0$};
+\end{scope}
+\node[font=\small\bfseries,main] at (9.2,1.3) {左部分木の高さが減らなかった};
+\begin{scope}[xshift=7.6cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$s$}] (n1) at (0,0) {$u$};
+\draw (n1) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
+\draw[fill=white] (-0.6,-1) -- (-0.93,-3) -- (-0.27,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.6,-3) {$a$};
+\draw (n1) -- (0.6,-1); \fill (0.6,-1) circle (1.2pt);
+\draw[fill=white] (0.6,-1) -- (0.27,-3) -- (0.93,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$b$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {除去前};
+\end{scope}
+\node at (9.2,-1.5) {\delarrow};
+\begin{scope}[xshift=10.8cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$s$}] (n2) at (0,0) {$u$};
+\draw (n2) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
+\draw[fill=accent!20] (-0.6,-1) -- (-0.93,-3) -- (-0.27,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.6,-3) {$a$};
+\draw (n2) -- (0.6,-1); \fill (0.6,-1) circle (1.2pt);
+\draw[fill=white] (0.6,-1) -- (0.27,-3) -- (0.93,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$b$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {$s(u)$ も高さもそのまま};
+\end{scope}
+  \end{tikzpicture}\\[2pt]
+  \raggedright\footnotesize
+  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は除去で高さが変わった部分木．\\
+  子が1つの $x$：釣り合っていたので子 $c$ は葉．どちらも高さはちょうど1減る．子が2つの場合は，右部分木の最小のキーを $x$ に写し，右部分木からその節点を除去する（右部分木への DELETE に帰着）．
+\end{frame}
+% =====================================================
+\begin{frame}{DELETE の各場合 (2)：左が1低くなり，$s(u)=L$ または $E$}
+  \centering
+  \begin{tikzpicture}[avl,y=0.5cm]
+\node[font=\small\bfseries,main] at (1.6,1.3) {除去前 $s(u)=L$（$a=b+1$）};
+\begin{scope}[xshift=0cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (l1) at (0,0) {$u$};
+\draw (l1) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
+\draw[fill=white] (-0.6,-1) -- (-0.93,-4) -- (-0.27,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.6,-4) {$b{+}1$};
+\draw (l1) -- (0.6,-1); \fill (0.6,-1) circle (1.2pt);
+\draw[fill=white] (0.6,-1) -- (0.27,-3) -- (0.93,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$b$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {除去前\\高さ $b+2$};
+\end{scope}
+\node at (1.6,-1.5) {\delarrow};
+\begin{scope}[xshift=3.2cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (l2) at (0,0) {$u$};
+\draw (l2) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
+\draw[fill=accent!20] (-0.6,-1) -- (-0.93,-3) -- (-0.27,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.6,-3) {$b$};
+\draw (l2) -- (0.6,-1); \fill (0.6,-1) circle (1.2pt);
+\draw[fill=white] (0.6,-1) -- (0.27,-3) -- (0.93,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$b$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {左右が等しい：$s(u)=E$\\高さ $b+1$（1減る）};
+\end{scope}
+\node[font=\small\bfseries,main] at (8.8,1.3) {除去前 $s(u)=E$（$a=b$）};
+\begin{scope}[xshift=7.2cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (m1) at (0,0) {$u$};
+\draw (m1) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
+\draw[fill=white] (-0.6,-1) -- (-0.93,-3) -- (-0.27,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.6,-3) {$b$};
+\draw (m1) -- (0.6,-1); \fill (0.6,-1) circle (1.2pt);
+\draw[fill=white] (0.6,-1) -- (0.27,-3) -- (0.93,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$b$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {除去前\\高さ $b+1$};
+\end{scope}
+\node at (8.8,-1.5) {\delarrow};
+\begin{scope}[xshift=10.4cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (m2) at (0,0) {$u$};
+\draw (m2) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
+\draw[fill=accent!20] (-0.6,-1) -- (-0.93,-2) -- (-0.27,-2) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.6,-2) {$b{-}1$};
+\draw (m2) -- (0.6,-1); \fill (0.6,-1) circle (1.2pt);
+\draw[fill=white] (0.6,-1) -- (0.27,-3) -- (0.93,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$b$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {右が1高い：$s(u)=R$\\高さ $b+1$（不変）};
+\end{scope}
+  \end{tikzpicture}\\[2pt]
+  \raggedright\footnotesize
+  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は除去で高さが変わった部分木．
+\end{frame}
+
+% =====================================================
 \begin{frame}{証明 (10)：状態 $R$ の場合と結論}
   \small
   \begin{block}{左部分木の高さが1低くなり，除去前 $s(u)=R$（$b=a+1$）}
@@ -1251,46 +1599,218 @@
 \end{frame}
 
 % =====================================================
-\begin{frame}{証明の図 (4)：節点 $u$ での場合分け（証明 (9)(10)）}
+\begin{frame}{DELETE の各場合 (3)：$s(u)=R$，$s(w)=E$（図 3.12(a)）}
   \centering
-  \begin{tikzpicture}[avl]
-    \begin{scope}[every node/.style={font=\scriptsize,align=center,text width=3.1cm}]
-      \node at (0,1.3) {左の高さが\\減らなかった};
-      \node at (3.5,1.3) {左が1減った\\除去前 $s(u)=L$};
-      \node at (7.0,1.3) {左が1減った\\除去前 $s(u)=E$};
-      \node at (10.5,1.3) {左が1減った\\除去前 $s(u)=R$};
-    \end{scope}
-    \node[nd] (uA) at (0,0) {$u$};
-    \sub{uA}{-0.6}{-1}{-3}{} \sub{uA}{0.6}{-1}{-3}{}
-    \node[font=\scriptsize,anchor=east] at (-0.90,-2.5) {$a$};
-    \node[font=\scriptsize,anchor=west] at (0.90,-2.5) {$b$};
-    \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]0:$L\to E$}] (uB) at (3.5,0) {$u$};
-    \sub{uB}{2.9}{-1}{-3}{} \sub{uB}{4.1}{-1}{-3}{}
-    \ext{2.9}{-3}{1}
-    \node[font=\scriptsize,anchor=east] at (2.60,-2.5) {$b$};
-    \node[font=\scriptsize,anchor=west] at (4.40,-2.5) {$b$};
-    \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]0:$E\to R$}] (uC) at (7.0,0) {$u$};
-    \sub{uC}{6.4}{-1}{-3}{} \sub{uC}{7.6}{-1}{-4}{}
-    \ext{6.4}{-3}{1}
-    \node[font=\scriptsize,anchor=east] at (6.10,-2.5) {$b{-}1$};
-    \node[font=\scriptsize,anchor=west] at (7.90,-3.5) {$b$};
-    \node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]0:$R$}] (uD) at (10.5,0) {$u$};
-    \sub{uD}{9.9}{-1}{-3}{} \sub{uD}{11.1}{-1}{-5}{}
-    \ext{9.9}{-3}{1}
-    \node[font=\scriptsize,anchor=east] at (9.60,-2.5) {$b{-}2$};
-    \node[font=\scriptsize,anchor=west] at (11.40,-4.5) {$b$};
-    \draw[dotted,accent] (10.2,-3) -- (12.25,-3) (10.2,-5) -- (12.25,-5);
-    \draw[<->,accent,thick] (12.2,-3) -- node[right,font=\scriptsize]{2} (12.2,-5);
-    \begin{scope}[every node/.style={font=\scriptsize,align=center,text width=3.1cm,anchor=north}]
-      \node at (0,-6.2) {$s(u)$ はそのまま\\高さ不変};
-      \node at (3.5,-6.2) {左右とも $b$\\高さ $-1$（$\Delta=-1$）};
-      \node at (7.0,-6.2) {右が1高い（釣り合う）\\高さ不変（$\Delta=0$）};
-      \node at (10.5,-6.2) {差が2 $\Rightarrow$ 図 3.12 の回転\\(a) 高さ不変（$\Delta=0$）\\(b)(c) 高さ $-1$（$\Delta=-1$）};
-    \end{scope}
+  \begin{tikzpicture}[avl,y=0.5cm]
+\begin{scope}[xshift=0.0cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (u) at (0,0) {$u$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (w) at (1.0,-1) {$w$};
+\draw (u)--(w);
+\draw (u) -- (-1.0,-1); \fill (-1.0,-1) circle (1.2pt);
+\draw[fill=white] (-1.0,-1) -- (-1.33,-4) -- (-0.67,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.0,-4) {$k{+}1$};
+\node[font=\scriptsize] at (-1.0,-3.45) {$\alpha$};
+\draw (w) -- (0.5,-2); \fill (0.5,-2) circle (1.2pt);
+\draw[fill=white] (0.5,-2) -- (0.17,-5) -- (0.83,-5) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.5,-5) {$k{+}1$};
+\node[font=\scriptsize] at (0.5,-4.45) {$\beta$};
+\draw (w) -- (1.5,-2); \fill (1.5,-2) circle (1.2pt);
+\draw[fill=white] (1.5,-2) -- (1.17,-5) -- (1.83,-5) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.5,-5) {$k{+}1$};
+\node[font=\scriptsize] at (1.5,-4.45) {$\gamma$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {除去前\\高さ $k+3$};
+\end{scope}
+\node at (2.3,-2) {\delarrow};
+\begin{scope}[xshift=4.6cm]
+\node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (u) at (0,0) {$u$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (w) at (1.0,-1) {$w$};
+\draw (u)--(w);
+\draw (u) -- (-1.0,-1); \fill (-1.0,-1) circle (1.2pt);
+\draw[fill=accent!20] (-1.0,-1) -- (-1.33,-3) -- (-0.67,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.0,-3) {$k$};
+\node[font=\scriptsize] at (-1.0,-2.45) {$\alpha$};
+\draw (w) -- (0.5,-2); \fill (0.5,-2) circle (1.2pt);
+\draw[fill=white] (0.5,-2) -- (0.17,-5) -- (0.83,-5) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.5,-5) {$k{+}1$};
+\node[font=\scriptsize] at (0.5,-4.45) {$\beta$};
+\draw (w) -- (1.5,-2); \fill (1.5,-2) circle (1.2pt);
+\draw[fill=white] (1.5,-2) -- (1.17,-5) -- (1.83,-5) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.5,-5) {$k{+}1$};
+\node[font=\scriptsize] at (1.5,-4.45) {$\gamma$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {$\alpha$ から除去：$\alpha$ が $k$\\$u$ で右が2高い};
+\end{scope}
+\node at (6.8999999999999995,-2) {\rotarrow};
+\begin{scope}[xshift=9.2cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (w) at (0,0) {$w$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$R$}] (u) at (-1.0,-1) {$u$};
+\draw (w)--(u);
+\draw (u) -- (-1.5,-2); \fill (-1.5,-2) circle (1.2pt);
+\draw[fill=accent!20] (-1.5,-2) -- (-1.83,-4) -- (-1.17,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.5,-4) {$k$};
+\node[font=\scriptsize] at (-1.5,-3.45) {$\alpha$};
+\draw (u) -- (-0.5,-2); \fill (-0.5,-2) circle (1.2pt);
+\draw[fill=white] (-0.5,-2) -- (-0.83,-5) -- (-0.17,-5) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.5,-5) {$k{+}1$};
+\node[font=\scriptsize] at (-0.5,-4.45) {$\beta$};
+\draw (w) -- (1.0,-1); \fill (1.0,-1) circle (1.2pt);
+\draw[fill=white] (1.0,-1) -- (0.67,-4) -- (1.33,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.0,-4) {$k{+}1$};
+\node[font=\scriptsize] at (1.0,-3.45) {$\gamma$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {回転後：$s(u)=R$，$s(w)=L$\\高さ $k+3$（変わらない）};
+\end{scope}
   \end{tikzpicture}\\[2pt]
   \raggedright\footnotesize
-  三角形の横の文字は除去後の高さ．破線は除去で失われた高さ．右部分木は変わらない．\\
-  4つ目の場合の回転後が AVL木であることと高さは，(G1)〜(G3) と図 3.12 による．
+  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は除去で高さが変わった部分木．$s(u),s(w)$ は除去前の値．\\
+  左から右へ $\alpha,u,\beta,w,\gamma$ の順．高さが変わらないので，修正はここで終了．
+\end{frame}
+% =====================================================
+\begin{frame}{DELETE の各場合 (4)：$s(u)=R$，$s(w)=R$（図 3.12(b)）}
+  \centering
+  \begin{tikzpicture}[avl,y=0.5cm]
+\begin{scope}[xshift=0.0cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (u) at (0,0) {$u$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (w) at (1.0,-1) {$w$};
+\draw (u)--(w);
+\draw (u) -- (-1.0,-1); \fill (-1.0,-1) circle (1.2pt);
+\draw[fill=white] (-1.0,-1) -- (-1.33,-4) -- (-0.67,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.0,-4) {$k{+}1$};
+\node[font=\scriptsize] at (-1.0,-3.45) {$\alpha$};
+\draw (w) -- (0.5,-2); \fill (0.5,-2) circle (1.2pt);
+\draw[fill=white] (0.5,-2) -- (0.17,-4) -- (0.83,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.5,-4) {$k$};
+\node[font=\scriptsize] at (0.5,-3.45) {$\beta$};
+\draw (w) -- (1.5,-2); \fill (1.5,-2) circle (1.2pt);
+\draw[fill=white] (1.5,-2) -- (1.17,-5) -- (1.83,-5) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.5,-5) {$k{+}1$};
+\node[font=\scriptsize] at (1.5,-4.45) {$\gamma$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {除去前\\高さ $k+3$};
+\end{scope}
+\node at (2.3,-2) {\delarrow};
+\begin{scope}[xshift=4.6cm]
+\node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (u) at (0,0) {$u$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (w) at (1.0,-1) {$w$};
+\draw (u)--(w);
+\draw (u) -- (-1.0,-1); \fill (-1.0,-1) circle (1.2pt);
+\draw[fill=accent!20] (-1.0,-1) -- (-1.33,-3) -- (-0.67,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.0,-3) {$k$};
+\node[font=\scriptsize] at (-1.0,-2.45) {$\alpha$};
+\draw (w) -- (0.5,-2); \fill (0.5,-2) circle (1.2pt);
+\draw[fill=white] (0.5,-2) -- (0.17,-4) -- (0.83,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (0.5,-4) {$k$};
+\node[font=\scriptsize] at (0.5,-3.45) {$\beta$};
+\draw (w) -- (1.5,-2); \fill (1.5,-2) circle (1.2pt);
+\draw[fill=white] (1.5,-2) -- (1.17,-5) -- (1.83,-5) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.5,-5) {$k{+}1$};
+\node[font=\scriptsize] at (1.5,-4.45) {$\gamma$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {$\alpha$ から除去：$\alpha$ が $k$\\$u$ で右が2高い};
+\end{scope}
+\node at (6.8999999999999995,-2) {\rotarrow};
+\begin{scope}[xshift=9.2cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (w) at (0,0) {$w$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$E$}] (u) at (-1.0,-1) {$u$};
+\draw (w)--(u);
+\draw (u) -- (-1.5,-2); \fill (-1.5,-2) circle (1.2pt);
+\draw[fill=accent!20] (-1.5,-2) -- (-1.83,-4) -- (-1.17,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.5,-4) {$k$};
+\node[font=\scriptsize] at (-1.5,-3.45) {$\alpha$};
+\draw (u) -- (-0.5,-2); \fill (-0.5,-2) circle (1.2pt);
+\draw[fill=white] (-0.5,-2) -- (-0.83,-4) -- (-0.17,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.5,-4) {$k$};
+\node[font=\scriptsize] at (-0.5,-3.45) {$\beta$};
+\draw (w) -- (1.0,-1); \fill (1.0,-1) circle (1.2pt);
+\draw[fill=white] (1.0,-1) -- (0.67,-4) -- (1.33,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.0,-4) {$k{+}1$};
+\node[font=\scriptsize] at (1.0,-3.45) {$\gamma$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {回転後：$s(u)=s(w)=E$\\高さ $k+2$（1減る）};
+\end{scope}
+  \end{tikzpicture}\\[2pt]
+  \raggedright\footnotesize
+  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は除去で高さが変わった部分木．$s(u),s(w)$ は除去前の値．\\
+  左から右へ $\alpha,u,\beta,w,\gamma$ の順．高さが1減るので，$w$ の親へ修正を続ける．
+\end{frame}
+% =====================================================
+\begin{frame}{DELETE の各場合 (5)：$s(u)=R$，$s(w)=L$（図 3.12(c)）}
+  \centering
+  \begin{tikzpicture}[avl,y=0.5cm]
+\begin{scope}[xshift=0.0cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (u) at (0,0) {$u$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (w) at (1.0,-1) {$w$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$s$}] (z) at (0.4,-2) {$z$};
+\draw (u)--(w);
+\draw (w)--(z);
+\draw (u) -- (-1.2,-1); \fill (-1.2,-1) circle (1.2pt);
+\draw[fill=white] (-1.2,-1) -- (-1.53,-4) -- (-0.87,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.2,-4) {$k{+}1$};
+\node[font=\scriptsize] at (-1.2,-3.45) {$\alpha$};
+\draw (z) -- (-0.05,-3); \fill (-0.05,-3) circle (1.2pt);
+\draw[fill=white] (-0.05,-3) -- (-0.38,-4) -- (0.28,-4) -- cycle;
+\draw[dashed,gray] (-0.38,-4) -- (-0.545,-5) -- (0.445,-5) -- (0.28,-4);
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.05,-5) {$\le k$};
+\draw (z) -- (0.85,-3); \fill (0.85,-3) circle (1.2pt);
+\draw[fill=white] (0.85,-3) -- (0.52,-4) -- (1.18,-4) -- cycle;
+\draw[dashed,gray] (0.52,-4) -- (0.355,-5) -- (1.345,-5) -- (1.18,-4);
+\node[font=\scriptsize,below,inner sep=1pt] at (0.85,-5) {$\le k$};
+\draw (w) -- (1.7,-2); \fill (1.7,-2) circle (1.2pt);
+\draw[fill=white] (1.7,-2) -- (1.37,-4) -- (2.03,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.7,-4) {$k$};
+\node[font=\scriptsize] at (1.7,-3.45) {$\delta$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {除去前\\高さ $k+3$};
+\end{scope}
+\node at (2.3,-2) {\delarrow};
+\begin{scope}[xshift=4.6cm]
+\node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (u) at (0,0) {$u$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (w) at (1.0,-1) {$w$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$s$}] (z) at (0.4,-2) {$z$};
+\draw (u)--(w);
+\draw (w)--(z);
+\draw (u) -- (-1.2,-1); \fill (-1.2,-1) circle (1.2pt);
+\draw[fill=accent!20] (-1.2,-1) -- (-1.53,-3) -- (-0.87,-3) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.2,-3) {$k$};
+\node[font=\scriptsize] at (-1.2,-2.45) {$\alpha$};
+\draw (z) -- (-0.05,-3); \fill (-0.05,-3) circle (1.2pt);
+\draw[fill=white] (-0.05,-3) -- (-0.38,-4) -- (0.28,-4) -- cycle;
+\draw[dashed,gray] (-0.38,-4) -- (-0.545,-5) -- (0.445,-5) -- (0.28,-4);
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.05,-5) {$\le k$};
+\draw (z) -- (0.85,-3); \fill (0.85,-3) circle (1.2pt);
+\draw[fill=white] (0.85,-3) -- (0.52,-4) -- (1.18,-4) -- cycle;
+\draw[dashed,gray] (0.52,-4) -- (0.355,-5) -- (1.345,-5) -- (1.18,-4);
+\node[font=\scriptsize,below,inner sep=1pt] at (0.85,-5) {$\le k$};
+\draw (w) -- (1.7,-2); \fill (1.7,-2) circle (1.2pt);
+\draw[fill=white] (1.7,-2) -- (1.37,-4) -- (2.03,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.7,-4) {$k$};
+\node[font=\scriptsize] at (1.7,-3.45) {$\delta$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {$\alpha$ から除去：$\alpha$ が $k$\\$u$ で右が2高い};
+\end{scope}
+\node at (6.8999999999999995,-2) {\rotarrow};
+\begin{scope}[xshift=9.2cm]
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (z) at (0,0) {$z$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$E/L$}] (u) at (-1.0,-1) {$u$};
+\node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E/R$}] (w) at (1.0,-1) {$w$};
+\draw (z)--(u);
+\draw (z)--(w);
+\draw (u) -- (-1.5,-2); \fill (-1.5,-2) circle (1.2pt);
+\draw[fill=accent!20] (-1.5,-2) -- (-1.83,-4) -- (-1.17,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (-1.5,-4) {$k$};
+\node[font=\scriptsize] at (-1.5,-3.45) {$\alpha$};
+\draw (u) -- (-0.5,-2); \fill (-0.5,-2) circle (1.2pt);
+\draw[fill=white] (-0.5,-2) -- (-0.83,-3) -- (-0.17,-3) -- cycle;
+\draw[dashed,gray] (-0.83,-3) -- (-0.995,-4) -- (-0.005,-4) -- (-0.17,-3);
+\node[font=\scriptsize,below,inner sep=1pt] at (-0.5,-4) {$\le k$};
+\draw (w) -- (0.5,-2); \fill (0.5,-2) circle (1.2pt);
+\draw[fill=white] (0.5,-2) -- (0.17,-3) -- (0.83,-3) -- cycle;
+\draw[dashed,gray] (0.17,-3) -- (0.005,-4) -- (0.995,-4) -- (0.83,-3);
+\node[font=\scriptsize,below,inner sep=1pt] at (0.5,-4) {$\le k$};
+\draw (w) -- (1.5,-2); \fill (1.5,-2) circle (1.2pt);
+\draw[fill=white] (1.5,-2) -- (1.17,-4) -- (1.83,-4) -- cycle;
+\node[font=\scriptsize,below,inner sep=1pt] at (1.5,-4) {$k$};
+\node[font=\scriptsize] at (1.5,-3.45) {$\delta$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {回転後：$s(z)=E$\\高さ $k+2$（1減る）};
+\end{scope}
+  \end{tikzpicture}\\[2pt]
+  \raggedright\footnotesize
+  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は除去で高さが変わった部分木．$s(u),s(w)$ は除去前の値．\\
+  $z$ の下の2つ（左から $\beta,\gamma$）は高さ $k-1$ か $k$（$\le k$，灰色の破線）で，少なくとも一方は $k$．左から右へ $\alpha,u,\beta,z,\gamma,w,\delta$．\\
+  $s(z)=L$（$\beta=k,\ \gamma=k-1$）$\Rightarrow$ $s(u)=E,\ s(w)=R$；$s(z)=E$ $\Rightarrow$ $s(u)=s(w)=E$；$s(z)=R$（$\beta=k-1,\ \gamma=k$）$\Rightarrow$ $s(u)=L,\ s(w)=E$．
 \end{frame}
 
 % =====================================================

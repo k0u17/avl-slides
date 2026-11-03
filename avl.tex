@@ -648,30 +648,16 @@
 \end{frame}
 
 % =====================================================
-\begin{frame}{証明 (4)：空の木，および左が高くならない場合，状態 $R$，$E$}
+\begin{frame}{証明 (4)：空の木，左部分木が高くならない場合}
   \footnotesize
-  \begin{block}{空の木}
-    結果は葉ひとつ．釣り合っていて状態は $E$．高さは $-1$ から $0$ になり，ちょうど1増える．
-  \end{block}
+  \textbf{空の木}：結果は葉ひとつ．釣り合っていて状態は $E$．高さは $-1$ から $0$ になり，ちょうど1増える．\\[2pt]
   \textbf{空でない木}：挿入前の左右の部分木の高さを $a,\ b$ とする（$|a-b|\le1$）．右部分木は変わらず，もともと問題ない．
   左部分木への挿入は，より小さい木への同じ挿入なので，新しい左部分木は (1)〜(3) をみたす．2分探索木であることは，回転が部分木を組み替えるだけで
-  左から右への並びを変えないことから，どの場合も成り立つ．
-  \begin{block}{左部分木の高さが増えなかった}
-    $u$ での差は変わらないので，$u$ は釣り合い，$s(u)$ も正しいまま．木の高さも変わらない．
-  \end{block}
-  \begin{block}{左部分木の高さが1増えた（新しい高さ $a+1$）}
-    \begin{itemize}
-      \item \textbf{挿入前 $s(u)=R$}（$b=a+1$）：左右の高さが等しくなるので $s(u)=E$ が正しい．高さは $b+1$ で挿入前と同じ．
-      \item \textbf{挿入前 $s(u)=E$}（$b=a$）：左が1高くなるので $s(u)=L$ が正しく，釣り合ったまま．高さは1増える．
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-% =====================================================
-\begin{frame}{INSERT の各場合 (1)：空の木，左が高くならない場合}
-  \centering
-  \begin{tikzpicture}[avl,y=0.5cm]
-\node[font=\small\bfseries,main] at (1.6,1.3) {空の木};
+  左から右への並びを変えないことから，どの場合も成り立つ．\\[2pt]
+  \textbf{左部分木の高さが増えなかった}：$u$ での差は変わらないので，$u$ は釣り合い，$s(u)$ も正しいまま．木の高さも変わらない．
+  \begin{center}
+  \begin{tikzpicture}[avl,y=0.4cm]
+\node[font=\small\bfseries,main] at (1.6,1.9) {空の木};
 \begin{scope}[xshift=0cm]
 \node[font=\large] at (0,-1) {$\emptyset$};
 \node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {空の木\\高さ $-1$};
@@ -681,7 +667,7 @@
 \node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (x0) at (0,-1) {$x$};
 \node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {葉ひとつ\\高さ $0$（1増える）};
 \end{scope}
-\node[font=\small\bfseries,main] at (8.8,1.3) {左部分木の高さが増えなかった};
+\node[font=\small\bfseries,main] at (8.8,1.9) {左部分木の高さが増えなかった};
 \begin{scope}[xshift=7.2cm]
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$s$}] (a1) at (0,0) {$u$};
 \draw (a1) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
@@ -703,16 +689,22 @@
 \node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$b$};
 \node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {$u$ での差も $s(u)$ もそのまま\\高さ不変};
 \end{scope}
-  \end{tikzpicture}\\[2pt]
-  \raggedright\footnotesize
-  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は挿入で高さが変わった部分木．\\
-  右の場合：左部分木の中身は変わったが高さ $a$ は同じ（帰納法の仮定 (3)）．
+  \end{tikzpicture}
+  \end{center}
+  \vspace{-6pt}\scriptsize 三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きは挿入で高さが変わった部分木．
 \end{frame}
+
 % =====================================================
-\begin{frame}{INSERT の各場合 (2)：左が1高くなり，$s(u)=R$ または $E$}
-  \centering
-  \begin{tikzpicture}[avl,y=0.5cm]
-\node[font=\small\bfseries,main] at (1.6,1.3) {挿入前 $s(u)=R$（$b=a+1$）};
+\begin{frame}{証明 (5)：左部分木が1高くなり，挿入前 $s(u)=R$ または $E$}
+  \footnotesize
+  左部分木の新しい高さは $a+1$．
+  \begin{itemize}
+    \item \textbf{挿入前 $s(u)=R$}（$b=a+1$）：左右の高さが等しくなるので $s(u)=E$ が正しい．高さは $b+1$ で挿入前と同じ．
+    \item \textbf{挿入前 $s(u)=E$}（$b=a$）：左が1高くなるので $s(u)=L$ が正しく，釣り合ったまま．高さは1増える．
+  \end{itemize}
+  \begin{center}
+  \begin{tikzpicture}[avl,y=0.4cm]
+\node[font=\small\bfseries,main] at (1.6,1.9) {挿入前 $s(u)=R$（$b=a+1$）};
 \begin{scope}[xshift=0cm]
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (r1) at (0,0) {$u$};
 \draw (r1) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
@@ -734,7 +726,7 @@
 \node[font=\scriptsize,below,inner sep=1pt] at (0.6,-4) {$a{+}1$};
 \node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {左右が等しい：$s(u)=E$\\高さ $a+2$（不変）};
 \end{scope}
-\node[font=\small\bfseries,main] at (8.8,1.3) {挿入前 $s(u)=E$（$b=a$）};
+\node[font=\small\bfseries,main] at (8.8,1.9) {挿入前 $s(u)=E$（$b=a$）};
 \begin{scope}[xshift=7.2cm]
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (e1) at (0,0) {$u$};
 \draw (e1) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
@@ -756,37 +748,21 @@
 \node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$a$};
 \node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {左が1高い：$s(u)=L$\\高さ $a+2$（1増える）};
 \end{scope}
-  \end{tikzpicture}\\[2pt]
-  \raggedright\footnotesize
-  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は挿入で高さが変わった部分木．
+  \end{tikzpicture}
+  \end{center}
+  \vspace{-6pt}\scriptsize 三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きは挿入で高さが変わった部分木．
 \end{frame}
 
 % =====================================================
-\begin{frame}{証明 (5)：状態 $L$ の場合と結論}
+\begin{frame}{証明 (6)：挿入前 $s(u)=L$，$s(v)=L$ の場合（図 3.11(a)）}
   \footnotesize
-  \begin{block}{左部分木の高さが1増え，挿入前 $s(u)=L$（$a=b+1$）}
-    左が右より2高くなるので，回転する．(F1)(F2) より，AVL木の条件を回復する回転が存在するので，それを施す．
-    (F3) より，回転後の部分木は AVL木の条件をみたす．回転後の $s$ は，回転後の形に合わせて定める．
-    また，回転後の部分木の高さは挿入前と同じである（図 3.11）．
-    その他の部分木は変化せず，もともと問題ない．
-  \end{block}
-  \textbf{補足}：(b) で $w$ が新しく挿入された節点（$\alpha,\beta,\gamma,\delta$ がすべて空）のときは $s(w)=E$ であり，(F2)(F3) の場合に含まれない．
-  このときは $u,v,w$ の3節点が折れ曲がって並んでおり，図 3.11(b) の回転で $w$ を根とする釣り合った3節点の木になる．
-  高さは $1$ のままで，挿入前の $u$ の部分木と同じである．
-  どの場合も，木とそのすべての部分木は釣り合い，状態は正しく，高さの変化は 0 または 1．これで示された．\qed
-  \begin{alertblock}{結論}
-    \begin{itemize}
-      \item 回転のあとは高さが変わらないので，それより上の節点では何も変わらない：回転は\alert{高々1回}．
-      \item 再帰は根から葉への1本の道をたどるので，時間は木の高さに比例する．
-        高さは $O(\log n)$（問題 (4) で後ほど証明する事実）なので，INSERT は最悪時間 $O(\log n)$．
-    \end{itemize}
-  \end{alertblock}
-\end{frame}
-
-% =====================================================
-\begin{frame}{INSERT の各場合 (3)：$s(u)=L$，$s(v)=L$（図 3.11(a)）}
-  \centering
-  \begin{tikzpicture}[avl,y=0.5cm]
+  左部分木の高さが1増え，挿入前 $s(u)=L$（$a=b+1$）のとき，左が右より2高くなるので，回転する．
+  (F1)(F2) より，AVL木の条件を回復する回転が存在するので，それを施す．
+  (F3) より，回転後の部分木は AVL木の条件をみたす．回転後の $s$ は，回転後の形に合わせて定める．
+  また，回転後の部分木の高さは挿入前と同じである（図 3.11）．その他の部分木は変化せず，もともと問題ない．\\[2pt]
+  下図は $s(v)=L$ で，図 3.11(a) の回転を施す場合．
+  \begin{center}
+  \begin{tikzpicture}[avl,y=0.4cm]
 \begin{scope}[xshift=0.0cm]
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (u) at (0,0) {$u$};
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$E$}] (v) at (-0.9,-1) {$v$};
@@ -803,7 +779,7 @@
 \draw[fill=white] (0.9,-1) -- (0.57,-3) -- (1.23,-3) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (0.9,-3) {$k$};
 \node[font=\scriptsize] at (0.9,-2.45) {$\gamma$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {挿入前\\高さ $k+2$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {挿入前\\高さ $k+2$};
 \end{scope}
 \node at (2.3,-2) {\insarrow};
 \begin{scope}[xshift=4.6cm]
@@ -822,7 +798,7 @@
 \draw[fill=white] (0.9,-1) -- (0.57,-3) -- (1.23,-3) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (0.9,-3) {$k$};
 \node[font=\scriptsize] at (0.9,-2.45) {$\gamma$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {$\alpha$ に挿入：$\alpha$ が $k+1$\\$u$ で左が2高い};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {$\alpha$ に挿入：$\alpha$ が $k+1$\\$u$ で左が2高い};
 \end{scope}
 \node at (6.8999999999999995,-2) {\rotarrow};
 \begin{scope}[xshift=9.2cm]
@@ -841,17 +817,21 @@
 \draw[fill=white] (1.4,-2) -- (1.07,-4) -- (1.73,-4) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (1.4,-4) {$k$};
 \node[font=\scriptsize] at (1.4,-3.45) {$\gamma$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {回転後：$s(v)=s(u)=E$\\高さ $k+2$（挿入前と同じ）};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {回転後：$s(v)=s(u)=E$\\高さ $k+2$（挿入前と同じ）};
 \end{scope}
-  \end{tikzpicture}\\[2pt]
-  \raggedright\footnotesize
-  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は挿入で高さが変わった部分木．$s(u)$ は挿入前の値．\\
-  回転後の $u$：左右とも $k$．$v$：左右とも $k+1$．どちらも釣り合う．
+  \end{tikzpicture}
+  \end{center}
+  \vspace{-6pt}\scriptsize 三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きは挿入で高さが変わった部分木．$s(u)$ は挿入前の値．
 \end{frame}
+
 % =====================================================
-\begin{frame}{INSERT の各場合 (4)：$s(u)=L$，$s(v)=R$，$s(w)=L$（図 3.11(b)）}
-  \centering
-  \begin{tikzpicture}[avl,y=0.5cm]
+\begin{frame}{証明 (7)：挿入前 $s(u)=L$，$s(v)=R$ の場合（図 3.11(b)）}
+  \footnotesize
+  (F1) より $s(v)$ は $L$ か $R$．$s(v)=R$ のときは，(F2) より図 3.11(b) の回転を施す．
+  (F3) より回転後の部分木は AVL木の条件をみたし，高さは挿入前と同じである（図 3.11）．\\[2pt]
+  下図は $s(w)=L$ の場合（図 3.11(b)）．
+  \begin{center}
+  \begin{tikzpicture}[avl,y=0.4cm]
 \begin{scope}[xshift=0.0cm]
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (u) at (0,0) {$u$};
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$E$}] (v) at (-1.0,-1) {$v$};
@@ -872,7 +852,7 @@
 \draw[fill=white] (1.0,-1) -- (0.67,-3) -- (1.33,-3) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (1.0,-3) {$k$};
 \node[font=\scriptsize] at (1.0,-2.45) {$\delta$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {挿入前\\高さ $k+2$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {挿入前\\高さ $k+2$};
 \end{scope}
 \node at (2.3,-2) {\insarrow};
 \begin{scope}[xshift=4.6cm]
@@ -896,7 +876,7 @@
 \draw[fill=white] (1.0,-1) -- (0.67,-3) -- (1.33,-3) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (1.0,-3) {$k$};
 \node[font=\scriptsize] at (1.0,-2.45) {$\delta$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {$\beta$ に挿入：$\beta$ が $k$\\$u$ で左が2高い};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {$\beta$ に挿入：$\beta$ が $k$\\$u$ で左が2高い};
 \end{scope}
 \node at (6.8999999999999995,-2) {\rotarrow};
 \begin{scope}[xshift=9.2cm]
@@ -920,17 +900,21 @@
 \draw[fill=white] (1.5,-2) -- (1.17,-4) -- (1.83,-4) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (1.5,-4) {$k$};
 \node[font=\scriptsize] at (1.5,-3.45) {$\delta$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {回転後：$s(w)=s(v)=E$，$s(u)=R$\\高さ $k+2$（挿入前と同じ）};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {回転後：$s(w)=s(v)=E$，$s(u)=R$\\高さ $k+2$（挿入前と同じ）};
 \end{scope}
-  \end{tikzpicture}\\[2pt]
-  \raggedright\footnotesize
-  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は挿入で高さが変わった部分木．$s(u)$ は挿入前の値．\\
-  左から右へ $\alpha,v,\beta,w,\gamma,u,\delta$ の順（並びは回転で変わらない）．
+  \end{tikzpicture}
+  \end{center}
+  \vspace{-6pt}\scriptsize 三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きは挿入で高さが変わった部分木．$s(u)$ は挿入前の値．左から右へ $\alpha,v,\beta,w,\gamma,u,\delta$ の順（並びは回転で変わらない）．
 \end{frame}
+
 % =====================================================
-\begin{frame}{INSERT の各場合 (5)：$s(u)=L$，$w$ が新しい節点（補足）}
-  \centering
-  \begin{tikzpicture}[avl,y=0.5cm]
+\begin{frame}{証明 (8)：$w$ が新しい節点の場合と結論}
+  \footnotesize
+  \textbf{補足}：(b) で $w$ が新しく挿入された節点（$\alpha,\beta,\gamma,\delta$ がすべて空）のときは $s(w)=E$ であり，(F2)(F3) の場合に含まれない．
+  このときは $u,v,w$ の3節点が折れ曲がって並んでおり，図 3.11(b) の回転で $w$ を根とする釣り合った3節点の木になる．
+  高さは $1$ のままで，挿入前の $u$ の部分木と同じである．
+  \begin{center}
+  \begin{tikzpicture}[avl,y=0.4cm]
 \begin{scope}[xshift=0.0cm]
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (u) at (0,0) {$u$};
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$E$}] (v) at (-0.9,-1) {$v$};
@@ -955,9 +939,16 @@
 \draw (w)--(u);
 \node[font=\scriptsize,align=center,anchor=north] at (0,-3.0) {図 3.11(b) の回転\\高さ $1$（挿入前と同じ）};
 \end{scope}
-  \end{tikzpicture}\\[2pt]
-  \raggedright\footnotesize
-  $\alpha,\beta,\gamma,\delta$ がすべて空の場合．$s(w)=E$ なので (F2)(F3) には含まれないが，同じ回転で3節点が釣り合う．
+  \end{tikzpicture}
+  \end{center}
+  \footnotesize どの場合も，木とそのすべての部分木は釣り合い，状態は正しく，高さの変化は 0 または 1．これで示された．\qed
+  \begin{alertblock}{結論}
+    \begin{itemize}
+      \item 回転のあとは高さが変わらないので，それより上の節点では何も変わらない：回転は\alert{高々1回}．
+      \item 再帰は根から葉への1本の道をたどるので，時間は木の高さに比例する．
+        高さは $O(\log n)$（問題 (4) で後ほど証明する事実）なので，INSERT は最悪時間 $O(\log n)$．
+    \end{itemize}
+  \end{alertblock}
 \end{frame}
 
 % =====================================================
@@ -1319,7 +1310,7 @@
 \end{frame}
 
 % =====================================================
-\begin{frame}{証明 (6)：DELETE の手順を再帰の形で述べる}
+\begin{frame}{証明 (9)：DELETE の手順を再帰の形で述べる}
   \footnotesize
   DELETE の修正手順も，INSERT と同様に，実行しても AVL木が保たれることを示す．\\[2pt]
   DELETE も再帰的に述べられる．根が $u$ の木から $x$ を除去するには，$x$ が小さければ左部分木から，大きければ右部分木から除去する（以降は左の場合．右の場合は左右を入れ替えて同様に行う）．
@@ -1340,7 +1331,7 @@
 \end{frame}
 
 % =====================================================
-\begin{frame}{証明 (7)：DELETE について示すこと}
+\begin{frame}{証明 (10)：DELETE について示すこと}
   \footnotesize
   \begin{alertblock}{示すこと}
     各節点 $y$ について，$d(y)=$（左部分木の高さ）$-$（右部分木の高さ）とする．
@@ -1357,7 +1348,7 @@
 \end{frame}
 
 % =====================================================
-\begin{frame}{証明 (8)：使う事実（図 3.12）}
+\begin{frame}{証明 (11)：使う事実（図 3.12）}
   \small
   除去前に $s(u)=R$ だった節点 $u$ で，除去によって左部分木が1低くなったとする（$u$ は傾きすぎ）．
   $u$ の右の子を $w$ とする．図 3.12 は左部分木が低くなった場合の図である（右部分木が低くなった場合は，左右を入れ替えて考える）．
@@ -1375,30 +1366,16 @@
 \end{frame}
 
 % =====================================================
-\begin{frame}{証明 (9)：除去する節点自身，状態 $L$，$E$}
+\begin{frame}{証明 (12)：節点そのもの，左部分木が低くならない場合}
   \footnotesize
-  \begin{block}{節点そのものの除去}
-    葉なら高さは $0\to-1$．子が1つの節点は，もともと釣り合っていたので，その子は葉で，高さは $1\to0$．
-    どちらも高さはちょうど1減る．子が2つの場合は，右部分木に対する DELETE に帰着する（下の場合で左右を入れ替えたもの）．
-  \end{block}
+  \textbf{節点そのものの除去}：葉なら高さは $0\to-1$．子が1つの節点は，もともと釣り合っていたので，その子は葉で，高さは $1\to0$．
+  どちらも高さはちょうど1減る．子が2つの場合は，右部分木に対する DELETE に帰着する（下の場合で左右を入れ替えたもの）．\\[2pt]
   \textbf{左部分木から除去した節点 $u$}：除去前の左右の部分木の高さを $a,\ b$ とする（$|a-b|\le1$）．右部分木は変わらず，もともと問題ない．
-  左部分木からの除去は，より小さい木からの同じ除去なので，新しい左部分木は (1)〜(3) をみたす．
-  \begin{block}{左部分木の高さが低くならなかった}
-    $u$ での差は変わらないので，$u$ は釣り合い，$s(u)$ も正しいまま．木の高さも変わらない．
-  \end{block}
-  \begin{block}{左部分木の高さが1低くなった（新しい高さ $a-1$）}
-    \begin{itemize}
-      \item \textbf{除去前 $s(u)=L$}（$a=b+1$）：左右の高さがともに $b$ になるので $s(u)=E$ が正しい．高さは $b+1$ で，除去前の $b+2$ よりちょうど1低い．
-      \item \textbf{除去前 $s(u)=E$}（$a=b$）：右が1高くなるので $s(u)=R$ が正しく，釣り合ったまま．高さは $1+b$ で除去前と同じ．
-    \end{itemize}
-  \end{block}
-\end{frame}
-
-% =====================================================
-\begin{frame}{DELETE の各場合 (1)：節点そのもの，左が低くならない場合}
-  \centering
-  \begin{tikzpicture}[avl,y=0.5cm]
-\node[font=\small\bfseries,main] at (0.9,1.3) {葉};
+  左部分木からの除去は，より小さい木からの同じ除去なので，新しい左部分木は (1)〜(3) をみたす．\\[2pt]
+  \textbf{左部分木の高さが低くならなかった}：$u$ での差は変わらないので，$u$ は釣り合い，$s(u)$ も正しいまま．木の高さも変わらない．
+  \begin{center}
+  \begin{tikzpicture}[avl,y=0.4cm]
+\node[font=\small\bfseries,main] at (0.9,1.9) {葉};
 \begin{scope}[xshift=0cm]
 \node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (x1) at (0,-1) {$x$};
 \node[font=\scriptsize,align=center,anchor=north] at (0,-2.6) {高さ $0$};
@@ -1408,7 +1385,7 @@
 \node[font=\large] at (0,-1) {$\emptyset$};
 \node[font=\scriptsize,align=center,anchor=north] at (0,-2.6) {高さ $-1$};
 \end{scope}
-\node[font=\small\bfseries,main] at (4.6,1.3) {子が1つ};
+\node[font=\small\bfseries,main] at (4.6,1.9) {子が1つ};
 \begin{scope}[xshift=3.6cm]
 \node[hl,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (x2) at (0,0) {$x$};
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]150:$E$}] (c2) at (-0.6,-1) {$c$};
@@ -1420,7 +1397,7 @@
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (c3) at (0,-1) {$c$};
 \node[font=\scriptsize,align=center,anchor=north] at (0,-2.6) {高さ $0$};
 \end{scope}
-\node[font=\small\bfseries,main] at (9.2,1.3) {左部分木の高さが減らなかった};
+\node[font=\small\bfseries,main] at (9.2,1.9) {左部分木の高さが減らなかった};
 \begin{scope}[xshift=7.6cm]
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$s$}] (n1) at (0,0) {$u$};
 \draw (n1) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
@@ -1442,16 +1419,22 @@
 \node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$b$};
 \node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {$s(u)$ も高さもそのまま};
 \end{scope}
-  \end{tikzpicture}\\[2pt]
-  \raggedright\footnotesize
-  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は除去で高さが変わった部分木．\\
-  子が1つの $x$：釣り合っていたので子 $c$ は葉．どちらも高さはちょうど1減る．子が2つの場合は，右部分木の最小のキーを $x$ に写し，右部分木からその節点を除去する（右部分木への DELETE に帰着）．
+  \end{tikzpicture}
+  \end{center}
+  \vspace{-6pt}\scriptsize 三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きは除去で高さが変わった部分木．
 \end{frame}
+
 % =====================================================
-\begin{frame}{DELETE の各場合 (2)：左が1低くなり，$s(u)=L$ または $E$}
-  \centering
-  \begin{tikzpicture}[avl,y=0.5cm]
-\node[font=\small\bfseries,main] at (1.6,1.3) {除去前 $s(u)=L$（$a=b+1$）};
+\begin{frame}{証明 (13)：左部分木が1低くなり，除去前 $s(u)=L$ または $E$}
+  \footnotesize
+  左部分木の新しい高さは $a-1$．
+  \begin{itemize}
+    \item \textbf{除去前 $s(u)=L$}（$a=b+1$）：左右の高さがともに $b$ になるので $s(u)=E$ が正しい．高さは $b+1$ で，除去前の $b+2$ よりちょうど1低い．
+    \item \textbf{除去前 $s(u)=E$}（$a=b$）：右が1高くなるので $s(u)=R$ が正しく，釣り合ったまま．高さは $1+b$ で除去前と同じ．
+  \end{itemize}
+  \begin{center}
+  \begin{tikzpicture}[avl,y=0.4cm]
+\node[font=\small\bfseries,main] at (1.6,1.9) {除去前 $s(u)=L$（$a=b+1$）};
 \begin{scope}[xshift=0cm]
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (l1) at (0,0) {$u$};
 \draw (l1) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
@@ -1473,7 +1456,7 @@
 \node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$b$};
 \node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {左右が等しい：$s(u)=E$\\高さ $b+1$（1減る）};
 \end{scope}
-\node[font=\small\bfseries,main] at (8.8,1.3) {除去前 $s(u)=E$（$a=b$）};
+\node[font=\small\bfseries,main] at (8.8,1.9) {除去前 $s(u)=E$（$a=b$）};
 \begin{scope}[xshift=7.2cm]
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (m1) at (0,0) {$u$};
 \draw (m1) -- (-0.6,-1); \fill (-0.6,-1) circle (1.2pt);
@@ -1495,34 +1478,21 @@
 \node[font=\scriptsize,below,inner sep=1pt] at (0.6,-3) {$b$};
 \node[font=\scriptsize,align=center,anchor=north] at (0,-4.7) {右が1高い：$s(u)=R$\\高さ $b+1$（不変）};
 \end{scope}
-  \end{tikzpicture}\\[2pt]
-  \raggedright\footnotesize
-  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は除去で高さが変わった部分木．
+  \end{tikzpicture}
+  \end{center}
+  \vspace{-6pt}\scriptsize 三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きは除去で高さが変わった部分木．
 \end{frame}
 
 % =====================================================
-\begin{frame}{証明 (10)：状態 $R$ の場合と結論}
-  \small
-  \begin{block}{左部分木の高さが1低くなり，除去前 $s(u)=R$（$b=a+1$）}
-    右が左より2高くなるので，回転する．(G1) より $w$ は存在し，(G2) より $s(w)$ に応じて図 3.12(a)，(b)，(c) のいずれかの回転を施す．
-    (G3) より，回転後の部分木は AVL木の条件をみたす．回転後の $s$ は，回転後の形に合わせて定める．
-    高さは，(a) では除去前と同じ，(b)，(c) では1低い．その他の部分木は変化せず，もともと問題ない．
-  \end{block}
-  どの場合も，木とそのすべての部分木は釣り合い，状態は正しく，高さの変化は 0 または $-1$．2分探索木であることは，回転が部分木を組み替えるだけで左から右への並びを変えないことから．これで示された．\qed
-  \begin{alertblock}{結論}
-    \begin{itemize}
-      \item 図 3.12(a) では高さが変わらないので，それより上の節点では何も変わらない．
-        (b)，(c) では1低くなるので，その上の節点でも同じ検討が起こり，回転は最大 $O(\log n)$ 回起こりうる（INSERT と異なる）．
-      \item 再帰は根から葉への1本の道をたどるので，時間は木の高さに比例する．
-        高さは $O(\log n)$（問題 (4) で後ほど証明する事実）なので，DELETE は最悪時間 $O(\log n)$．
-    \end{itemize}
-  \end{alertblock}
-\end{frame}
-
-% =====================================================
-\begin{frame}{DELETE の各場合 (3)：$s(u)=R$，$s(w)=E$（図 3.12(a)）}
-  \centering
-  \begin{tikzpicture}[avl,y=0.5cm]
+\begin{frame}{証明 (14)：除去前 $s(u)=R$，$s(w)=E$ の場合（図 3.12(a)）}
+  \footnotesize
+  左部分木の高さが1低くなり，除去前 $s(u)=R$（$b=a+1$）のとき，右が左より2高くなるので，回転する．
+  (G1) より $w$ は存在し，(G2) より $s(w)$ に応じて図 3.12(a)，(b)，(c) のいずれかの回転を施す．
+  (G3) より，回転後の部分木は AVL木の条件をみたす．回転後の $s$ は，回転後の形に合わせて定める．
+  その他の部分木は変化せず，もともと問題ない．\\[2pt]
+  $s(w)=E$ のときは図 3.12(a)．高さは除去前と同じ．
+  \begin{center}
+  \begin{tikzpicture}[avl,y=0.4cm]
 \begin{scope}[xshift=0.0cm]
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (u) at (0,0) {$u$};
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$E$}] (w) at (1.0,-1) {$w$};
@@ -1539,7 +1509,7 @@
 \draw[fill=white] (1.5,-2) -- (1.17,-5) -- (1.83,-5) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (1.5,-5) {$k{+}1$};
 \node[font=\scriptsize] at (1.5,-4.45) {$\gamma$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {除去前\\高さ $k+3$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {除去前\\高さ $k+3$};
 \end{scope}
 \node at (2.3,-2) {\delarrow};
 \begin{scope}[xshift=4.6cm]
@@ -1558,7 +1528,7 @@
 \draw[fill=white] (1.5,-2) -- (1.17,-5) -- (1.83,-5) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (1.5,-5) {$k{+}1$};
 \node[font=\scriptsize] at (1.5,-4.45) {$\gamma$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {$\alpha$ から除去：$\alpha$ が $k$\\$u$ で右が2高い};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {$\alpha$ から除去：$\alpha$ が $k$\\$u$ で右が2高い};
 \end{scope}
 \node at (6.8999999999999995,-2) {\rotarrow};
 \begin{scope}[xshift=9.2cm]
@@ -1577,17 +1547,19 @@
 \draw[fill=white] (1.0,-1) -- (0.67,-4) -- (1.33,-4) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (1.0,-4) {$k{+}1$};
 \node[font=\scriptsize] at (1.0,-3.45) {$\gamma$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {回転後：$s(u)=R$，$s(w)=L$\\高さ $k+3$（変わらない）};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {回転後：$s(u)=R$，$s(w)=L$\\高さ $k+3$（変わらない）};
 \end{scope}
-  \end{tikzpicture}\\[2pt]
-  \raggedright\footnotesize
-  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は除去で高さが変わった部分木．$s(u),s(w)$ は除去前の値．\\
-  左から右へ $\alpha,u,\beta,w,\gamma$ の順．高さが変わらないので，修正はここで終了．
+  \end{tikzpicture}
+  \end{center}
+  \vspace{-6pt}\scriptsize 三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きは除去で高さが変わった部分木．$s(u),s(w)$ は除去前の値．左から右へ $\alpha,u,\beta,w,\gamma$ の順．
 \end{frame}
+
 % =====================================================
-\begin{frame}{DELETE の各場合 (4)：$s(u)=R$，$s(w)=R$（図 3.12(b)）}
-  \centering
-  \begin{tikzpicture}[avl,y=0.5cm]
+\begin{frame}{証明 (15)：除去前 $s(u)=R$，$s(w)=R$ の場合（図 3.12(b)）}
+  \footnotesize
+  $s(w)=R$ のときは，(G2) より図 3.12(b) の回転を施す．(G3) より回転後の部分木は AVL木の条件をみたし，高さは除去前より1低い．
+  \begin{center}
+  \begin{tikzpicture}[avl,y=0.4cm]
 \begin{scope}[xshift=0.0cm]
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (u) at (0,0) {$u$};
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (w) at (1.0,-1) {$w$};
@@ -1604,7 +1576,7 @@
 \draw[fill=white] (1.5,-2) -- (1.17,-5) -- (1.83,-5) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (1.5,-5) {$k{+}1$};
 \node[font=\scriptsize] at (1.5,-4.45) {$\gamma$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {除去前\\高さ $k+3$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {除去前\\高さ $k+3$};
 \end{scope}
 \node at (2.3,-2) {\delarrow};
 \begin{scope}[xshift=4.6cm]
@@ -1623,7 +1595,7 @@
 \draw[fill=white] (1.5,-2) -- (1.17,-5) -- (1.83,-5) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (1.5,-5) {$k{+}1$};
 \node[font=\scriptsize] at (1.5,-4.45) {$\gamma$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {$\alpha$ から除去：$\alpha$ が $k$\\$u$ で右が2高い};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {$\alpha$ から除去：$\alpha$ が $k$\\$u$ で右が2高い};
 \end{scope}
 \node at (6.8999999999999995,-2) {\rotarrow};
 \begin{scope}[xshift=9.2cm]
@@ -1642,17 +1614,20 @@
 \draw[fill=white] (1.0,-1) -- (0.67,-4) -- (1.33,-4) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (1.0,-4) {$k{+}1$};
 \node[font=\scriptsize] at (1.0,-3.45) {$\gamma$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {回転後：$s(u)=s(w)=E$\\高さ $k+2$（1減る）};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {回転後：$s(u)=s(w)=E$\\高さ $k+2$（1減る）};
 \end{scope}
-  \end{tikzpicture}\\[2pt]
-  \raggedright\footnotesize
-  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は除去で高さが変わった部分木．$s(u),s(w)$ は除去前の値．\\
-  左から右へ $\alpha,u,\beta,w,\gamma$ の順．高さが1減るので，$w$ の親へ修正を続ける．
+  \end{tikzpicture}
+  \end{center}
+  \vspace{-6pt}\scriptsize 三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きは除去で高さが変わった部分木．$s(u),s(w)$ は除去前の値．左から右へ $\alpha,u,\beta,w,\gamma$ の順．
 \end{frame}
+
 % =====================================================
-\begin{frame}{DELETE の各場合 (5)：$s(u)=R$，$s(w)=L$（図 3.12(c)）}
-  \centering
-  \begin{tikzpicture}[avl,y=0.5cm]
+\begin{frame}{証明 (16)：除去前 $s(u)=R$，$s(w)=L$ の場合（図 3.12(c)）}
+  \footnotesize
+  $s(w)=L$ のときは，(G2) より図 3.12(c) の回転を施す（$s(z)$ は $L,E,R$ のいずれでもよい）．
+  (G3) より回転後の部分木は AVL木の条件をみたし，高さは除去前より1低い．
+  \begin{center}
+  \begin{tikzpicture}[avl,y=0.4cm]
 \begin{scope}[xshift=0.0cm]
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$R$}] (u) at (0,0) {$u$};
 \node[nd,label={[font=\scriptsize\itshape,inner sep=1pt]30:$L$}] (w) at (1.0,-1) {$w$};
@@ -1675,7 +1650,7 @@
 \draw[fill=white] (1.7,-2) -- (1.37,-4) -- (2.03,-4) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (1.7,-4) {$k$};
 \node[font=\scriptsize] at (1.7,-3.45) {$\delta$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {除去前\\高さ $k+3$};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {除去前\\高さ $k+3$};
 \end{scope}
 \node at (2.3,-2) {\delarrow};
 \begin{scope}[xshift=4.6cm]
@@ -1700,7 +1675,7 @@
 \draw[fill=white] (1.7,-2) -- (1.37,-4) -- (2.03,-4) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (1.7,-4) {$k$};
 \node[font=\scriptsize] at (1.7,-3.45) {$\delta$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {$\alpha$ から除去：$\alpha$ が $k$\\$u$ で右が2高い};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {$\alpha$ から除去：$\alpha$ が $k$\\$u$ で右が2高い};
 \end{scope}
 \node at (6.8999999999999995,-2) {\rotarrow};
 \begin{scope}[xshift=9.2cm]
@@ -1725,13 +1700,26 @@
 \draw[fill=white] (1.5,-2) -- (1.17,-4) -- (1.83,-4) -- cycle;
 \node[font=\scriptsize,below,inner sep=1pt] at (1.5,-4) {$k$};
 \node[font=\scriptsize] at (1.5,-3.45) {$\delta$};
-\node[font=\scriptsize,align=center,anchor=north] at (0,-5.7) {回転後：$s(z)=E$\\高さ $k+2$（1減る）};
+\node[font=\scriptsize,align=center,anchor=north] at (0,-6.3) {回転後：$s(z)=E$\\高さ $k+2$（1減る）};
 \end{scope}
-  \end{tikzpicture}\\[2pt]
-  \raggedright\footnotesize
-  三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きの三角形は除去で高さが変わった部分木．$s(u),s(w)$ は除去前の値．\\
-  $z$ の下の2つ（左から $\beta,\gamma$）は高さ $k-1$ か $k$（$\le k$，灰色の破線）で，少なくとも一方は $k$．左から右へ $\alpha,u,\beta,z,\gamma,w,\delta$．\\
+  \end{tikzpicture}
+  \end{center}
+  \vspace{-6pt}\scriptsize 三角形の下は部分木の高さ，節点の肩は状態 $s$．色付きは除去で高さが変わった部分木．$s(u),s(w)$ は除去前の値．$\le k$（灰色の破線）は高さ $k-1$ か $k$ で，少なくとも一方は $k$．左から右へ $\alpha,u,\beta,z,\gamma,w,\delta$．\\
   $s(z)=L$（$\beta=k,\ \gamma=k-1$）$\Rightarrow$ $s(u)=E,\ s(w)=R$；$s(z)=E$ $\Rightarrow$ $s(u)=s(w)=E$；$s(z)=R$（$\beta=k-1,\ \gamma=k$）$\Rightarrow$ $s(u)=L,\ s(w)=E$．
+\end{frame}
+
+% =====================================================
+\begin{frame}{証明 (17)：DELETE の結論}
+  \small
+  どの場合も，木とそのすべての部分木は釣り合い，状態は正しく，高さの変化は 0 または $-1$．2分探索木であることは，回転が部分木を組み替えるだけで左から右への並びを変えないことから．これで示された．\qed
+  \begin{alertblock}{結論}
+    \begin{itemize}
+      \item 図 3.12(a) では高さが変わらないので，それより上の節点では何も変わらない．
+        (b)，(c) では1低くなるので，その上の節点でも同じ検討が起こり，回転は最大 $O(\log n)$ 回起こりうる（INSERT と異なる）．
+      \item 再帰は根から葉への1本の道をたどるので，時間は木の高さに比例する．
+        高さは $O(\log n)$（問題 (4) で後ほど証明する事実）なので，DELETE は最悪時間 $O(\log n)$．
+    \end{itemize}
+  \end{alertblock}
 \end{frame}
 
 % =====================================================
